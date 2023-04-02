@@ -1,12 +1,12 @@
-package CosasConHitbox;
+package CosasConHItbox;
 
 import java.awt.*;
 
 
-public abstract class HitboxMadre extends Rectangle {
+public abstract class HitboxMadre2 extends Rectangle {
     protected int x,y,width,height,id;
     protected Rectangle hitbox;
-    protected HitboxMadre(int x, int y, int height, int width, int id){
+    protected HitboxMadre2(int x, int y, int height, int width, int id){
         this.x = x;
         this.y = y;
         this.width = width;

@@ -1,5 +1,5 @@
 package maines;
-import CosasConHitbox.Player;
+import CosasConHItbox.Player2;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import levels.levelmanager;
 
 public class MyPanel extends JPanel{
 	game Mygame;
-  Player player1;
+  	Player2 player1;
 	levelmanager lvlmanager;
 	int[][] currentlvl;
 
@@ -21,7 +21,7 @@ public class MyPanel extends JPanel{
     }
     
 	private void newPlayer() {
-		player1 = new Player(15,15,20,20,2);
+		player1 = new Player2(15,15,20,20,2);
 	}
 
 	public void render(Graphics g){

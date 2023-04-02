@@ -1,10 +1,10 @@
-package CosasConHitbox;
+package CosasConHItbox;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
 
-public class Player extends HitboxMadre {
+public class Player2 extends HitboxMadre2 {
     BufferedImage image;
     boolean isAlive;
     private Color color;
@@ -25,7 +25,7 @@ public class Player extends HitboxMadre {
                 return Color.cyan;
         }
     }
-    public Player(int x, int y, int height, int width, int id){
+    public Player2(int x, int y, int height, int width, int id){
        super(x, y, height, width, id);
        createHitbox(x,y,width,height,color);
         System.out.println("Me cree xd" );
