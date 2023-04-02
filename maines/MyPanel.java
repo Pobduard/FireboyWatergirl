@@ -17,7 +17,7 @@ public class MyPanel extends JPanel{
 		this.lvlmanager = new levelmanager(game);
 		this.setPreferredSize(new Dimension(game.Game_Width, game.Game_Height));
 		selectLevel(1);
-    newPlayer();
+    	newPlayer();
     }
     
 	private void newPlayer() {
@@ -33,9 +33,9 @@ public class MyPanel extends JPanel{
 
 	public void paintComponent(Graphics g){
   //player1.SetColor(1);
+  		lvlmanager.draw(g, currentlvl);
 		g.setFont(new Font("Comic Sans", Font.BOLD, 15));
 		g.drawString("Tenia que hacerlo.", 5, 20);
 		player1.render(g,player1.SetColor(player1.getId()));
-		lvlmanager.draw(g, currentlvl);
 	}
 }

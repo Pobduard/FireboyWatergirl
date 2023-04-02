@@ -11,6 +11,7 @@ public class MyFrame extends JFrame{
 		this.add(panel);
 		this.pack();
 		
+		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}

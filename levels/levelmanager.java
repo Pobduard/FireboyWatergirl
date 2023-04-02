@@ -13,7 +13,7 @@ public class levelmanager {
 
 	public levelmanager(game game){
 		this.Mygame = game;
-		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS));
+		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL));
 		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS));
 	}
 
@@ -41,7 +41,6 @@ public class levelmanager {
 			for (int j = 0; j < img.getHeight(); j++) {
 				Color pixelcolor = new Color(img.getRGB(i, j));
 				int colorvalue = pixelcolor.getRed();
-				System.out.println(i+" "+j+" "+colorvalue);
 				lvlData[i][j] = colorvalue;
 			}
 		}
@@ -50,29 +49,73 @@ public class levelmanager {
 	}
 
 	public static Color checkPixelValue(int value){
-		Color returnColor = Color.YELLOW;
+		Color returnColor = Color.LIGHT_GRAY;
+
 		switch (value) {
-			case 11:	//& Aire
+			case 255:	//& Aire
 				returnColor = Color.WHITE;
 				break;
-			case 13:	//& Bloque
+			case 156:	//& Bloque
 				returnColor = Color.BLACK;
 				break;
-			case 39:	//& Rampa
-				returnColor = Color.GRAY;
+			case 168:	//& Rampa
+			case 235:	//& Rampa
+			case 84:	//& Rampa
+			case 180:	//& Rampa
+				returnColor = Color.MAGENTA;
 				break;
-			case 25:	//& Agua
+			case 153:	//& Agua
 				returnColor = Color.BLUE;
 				break;
-			case 4:	//& Lava
-				returnColor = Color.ORANGE;
+			case 237:	//& Lava
+				returnColor = Color.RED;
 				break;
-			case 12:	//& Toxico
+			case 34:	//& Toxico
 				returnColor = Color.GREEN;
+				break;
+			case 5:	//& Diamante
+				returnColor = Color.CYAN;
+				break;
+			case 220:	//& Ruby
+				returnColor = new Color(220,114,35);
+				break;
+			case 50:	//& Boton
+				returnColor = new Color(156,90,60);
+				break;
+			case 150:	//& PiedraMovible
+				returnColor = Color.darkGray;
+				break;
+			case 211:	//& Ruby
+			case 111:	//& Ruby
+				returnColor = Color.PINK;
 				break;
 			default:
 				break;
 		}
+
+
+		// switch (value) {
+		// 	case 255:	//& Aire
+		// 		returnColor = Color.WHITE;
+		// 		break;
+		// 	case 0:	//& Bloque
+		// 		returnColor = Color.BLACK;
+		// 		break;
+		// 	case 127:	//& Rampa
+		// 		returnColor = Color.GRAY;
+		// 		break;
+		// 	case 128:	//& Agua
+		// 		returnColor = Color.BLUE;
+		// 		break;
+		// 	case 200:	//& Lava
+		// 		returnColor = Color.RED;
+		// 		break;
+		// 	case 39:	//& Toxico
+		// 		returnColor = Color.GREEN;
+		// 		break;
+		// 	default:
+		// 		break;
+		// }
 
 		return returnColor;
 	}
