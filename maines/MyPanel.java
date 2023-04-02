@@ -1,5 +1,5 @@
 package maines;
-import CosasConHItbox.Player2;
+import CosasConHitbox.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +8,7 @@ import levels.levelmanager;
 
 public class MyPanel extends JPanel{
 	game Mygame;
-  	Player2 player1;
+  	Player player1;
 	levelmanager lvlmanager;
 	int[][] currentlvl;
 
@@ -21,18 +21,21 @@ public class MyPanel extends JPanel{
     }
     
 	private void newPlayer() {
-		player1 = new Player2(15,15,20,20,2);
+		player1 = new Player(15,15,20,20,2);
 	}
-
-	public void render(Graphics g){
-		player1.render(g);
-	};
+	/*private void newBlocks(){
+		bloque =
+	}*/
 
 	public void selectLevel(int lvlNumber){
 		currentlvl = lvlmanager.getLeveldata(lvlNumber);
 	}
 
 	public void paintComponent(Graphics g){
+  //player1.SetColor(1);
+		g.setFont(new Font("Comic Sans", Font.BOLD, 15));
+		g.drawString("Tenia que hacerlo.", 5, 20);
+		player1.render(g,player1.SetColor(player1.getId()));
 		lvlmanager.draw(g, currentlvl);
 	}
 }
