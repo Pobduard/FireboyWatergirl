@@ -1,18 +1,22 @@
 package maines;
 
-import java.io.IOException;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import sound.sound;
-
+import utilz.CreateTimerTask;
+import java.util.TimerTask;
+import inputs.*;
 public class game {
 	private MyFrame frame;
 	private MyPanel panel;
+	private KeyInputs key;
+	private MouseInputs mouse;
+	// private Keyinputs key;
+	private TimerTask taskUpdate, taskDraw;
+	private final int FPS = 120, UPS = 200;
 	
 	public game(){
 	panel = new MyPanel();
-	frame = new MyFrame(panel, "La Venganza se Sirve Fria y Cruel :D");
+	frame = new MyFrame(panel, "Jaiber Arellano's & Williangel Quevedo's - Fireboy and Watergirl");
+	key = new KeyInputs(this);
+	mouse = new MouseInputs(this);
 
 	frame.add(panel);
 	panel.setFocusable(true);
@@ -20,30 +24,32 @@ public class game {
 	frame.setVisible(true);
 
 
-	
-	try {
-		new sound();
-	} catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	initTask();
+	initUpdates();
+	initDraws();
 	}
 
-	System.out.println("\n\n\n\n\n[Verse 1] \n"+
-		"We're no strangers to love\n"+
-		"You know the rules and so do I\n"+
-		"A full commitment's what I'm thinking of\n"+
-		"You wouldn't get this from any other guy\n"+
-		"[Pre-Chorus]\n"+
-		"I just wanna tell you how I'm feeling\n"+
-		"Gotta make you understand\n"+
-		
-		"[Chorus]\n"+
-		"Never gonna give you up\n"+
-		"Never gonna let you down\n"+
-		"Never gonna run around and desert you\n"+
-		"Never gonna make you cry\n"+
-		"Never gonna say goodbye\n"+
-		"Never gonna tell a lie and hurt you\n");
+	public void initTask(){
+		taskUpdate = new TimerTask() {
+			@Override
+			public void run(){
+				panel.update();
+			}
+		};
+		taskDraw = new TimerTask() {
+			@Override
+			public void run() {
+				panel.repaint();
+			}
+		};
+
+	};
+
+	public void initUpdates(){
+		CreateTimerTask.InitialiceTimerTask(taskUpdate, "Update-Timer", 0, Math.floorDiv(UPS, 100));
 	
+	}
+	public void initDraws(){
+		CreateTimerTask.InitialiceTimerTask(taskDraw, "Draws-Timer", 0, Math.floorDiv(FPS, 100));
 	}
 }
