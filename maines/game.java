@@ -38,7 +38,7 @@ public class game {
 		taskUpdate = new TimerTask() {
 			@Override
 			public void run(){
-				panel.update();
+				//panel.update();
 			}
 		};
 		taskDraw = new TimerTask() {

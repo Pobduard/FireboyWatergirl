@@ -1,4 +1,6 @@
 package maines;
+import CosasConHitbox.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import maines.game;
@@ -6,6 +8,7 @@ import levels.levelmanager;
 
 public class MyPanel extends JPanel{
 	game Mygame;
+  Player player1;
 	levelmanager lvlmanager;
 	int[][] currentlvl;
 
@@ -14,10 +17,15 @@ public class MyPanel extends JPanel{
 		this.lvlmanager = new levelmanager(game);
 		this.setPreferredSize(new Dimension(game.Game_Width, game.Game_Height));
 		selectLevel(1);
+    newPlayer();
+    }
+    
+	private void newPlayer() {
+		player1 = new Player(15,15,20,20,2);
 	}
 
-	public void update(){
-		
+	public void render(Graphics g){
+		player1.render(g);
 	};
 
 	public void selectLevel(int lvlNumber){
