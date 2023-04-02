@@ -8,6 +8,10 @@ public class MyPanel extends JPanel{
 		this.repaint();
 	}
 
+	public void update(){
+		
+	};
+
 	public void paintComponent(Graphics g){
 		g.setColor(Color.green);
 		g.setFont(new Font("Comic Sans", Font.BOLD, 15));
