@@ -1,6 +1,6 @@
 package maines;
 
-public class main {
+public class Main {
 	public static void main(String[] args) {
 	new game();
 }
