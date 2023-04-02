@@ -8,7 +8,7 @@ import levels.levelmanager;
 
 public class MyPanel extends JPanel{
 	game Mygame;
-  Player player1;
+  	Player player1;
 	levelmanager lvlmanager;
 	int[][] currentlvl;
 
@@ -21,7 +21,7 @@ public class MyPanel extends JPanel{
     }
     
 	private void newPlayer() {
-		player1 = new Player(40,45,70,70,2);
+		player1 = new Player(15,15,20,20,2);
 	}
 	/*private void newBlocks(){
 		bloque =
@@ -29,6 +29,7 @@ public class MyPanel extends JPanel{
 
 	public void selectLevel(int lvlNumber){
 		currentlvl = lvlmanager.getLeveldata(lvlNumber);
+	}
 
 	public void paintComponent(Graphics g){
   //player1.SetColor(1);
