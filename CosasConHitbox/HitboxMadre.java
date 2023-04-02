@@ -1,4 +1,4 @@
-package CosasConHItbox;
+package CosasConHitbox;
 
 import java.awt.*;
 
