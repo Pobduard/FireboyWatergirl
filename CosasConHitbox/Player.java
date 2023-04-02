@@ -10,13 +10,13 @@ public class Player extends HitboxMadre {
     private Color color;
     private boolean right, left, up, down;
 
-    public Color SetColor(){
+    public Color SetColor(int id){
         switch (id){
             case 0:
                 color = Color.RED;
                 return color;
             case 1:
-                color = Color.BLUE;
+                color = Color.YELLOW;
                 return color;
             case 2:
                color = Color.BLACK;
@@ -27,16 +27,16 @@ public class Player extends HitboxMadre {
     }
     public Player(int x, int y, int height, int width, int id){
        super(x, y, height, width, id);
-       createHitbox(x,y,width,height,color);
+       createHitbox(x,y,width,height);
         System.out.println("Me cree xd" );
+
     }
-    public void render(Graphics g){
-        drawHitbox(g);
+    public void render(Graphics g, Color this_color){
+        drawHitbox(g,this_color);
     }
+    private void updatePosition(){
 
-
-
-
+    }
 
 
     public boolean isRight() {
