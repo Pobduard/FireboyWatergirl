@@ -1,22 +1,30 @@
 package maines;
 import javax.swing.*;
 import java.awt.*;
+import maines.game;
+import levels.levelmanager;
 
 public class MyPanel extends JPanel{
-	public MyPanel(){
-		this.setPreferredSize(new Dimension(200, 50));
-		this.repaint();
+	game Mygame;
+	levelmanager lvlmanager;
+	int[][] currentlvl;
+
+	public MyPanel(game game){
+		this.Mygame= game;
+		this.lvlmanager = new levelmanager(game);
+		this.setPreferredSize(new Dimension(game.Game_Width, game.Game_Height));
+		selectLevel(1);
 	}
 
 	public void update(){
 		
 	};
 
-	public void paintComponent(Graphics g){
-		g.setColor(Color.green);
-		g.setFont(new Font("Comic Sans", Font.BOLD, 15));
-		g.drawString("Tenia que hacerlo.", 5, 20);
-		g.drawString("Mirá la consola y titulo xd", 5, 40);
+	public void selectLevel(int lvlNumber){
+		currentlvl = lvlmanager.getLeveldata(lvlNumber);
+	}
 
+	public void paintComponent(Graphics g){
+		lvlmanager.draw(g, currentlvl);
 	}
 }

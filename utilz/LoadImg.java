@@ -7,12 +7,8 @@ import java.io.*;
 import javax.imageio.ImageIO;
 
 public class LoadImg {
-	public static final String FONDO = "resources/fondo.gif"; 
-	public static final String PLAYER = "resources/usuario.jpg"; 
-	public static final String BLOCK1 = "resources/bloque1.jpg"; 
-	public static final String BLOCK2 = "resources/bloque2.jpg"; 
-	public static final String BLOCK3 = "resources/bloque3.jpg"; 
-	public static final String PELOTA = "resources/pelota.jpg"; 
+	public static final String LEVEL_ONE_PIXELS = "levels/level_one_data.png"; 
+
 
 
 	public static BufferedImage GetImage(String path){
