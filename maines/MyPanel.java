@@ -3,15 +3,23 @@ import CosasConHitbox.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import maines.game;
+import levels.levelmanager;
 
 public class MyPanel extends JPanel{
-	Player player1;
-	public MyPanel(){
-		this.setPreferredSize(new Dimension(200, 50));
-		this.repaint();
-		newPlayer();
-	}
+	game Mygame;
+  Player player1;
+	levelmanager lvlmanager;
+	int[][] currentlvl;
 
+	public MyPanel(game game){
+		this.Mygame= game;
+		this.lvlmanager = new levelmanager(game);
+		this.setPreferredSize(new Dimension(game.Game_Width, game.Game_Height));
+		selectLevel(1);
+    newPlayer();
+    }
+    
 	private void newPlayer() {
 		player1 = new Player(40,45,70,70,2);
 	}
@@ -19,12 +27,14 @@ public class MyPanel extends JPanel{
 		bloque =
 	}*/
 
+	public void selectLevel(int lvlNumber){
+		currentlvl = lvlmanager.getLeveldata(lvlNumber);
 
 	public void paintComponent(Graphics g){
-		//player1.SetColor(1);
+  //player1.SetColor(1);
 		g.setFont(new Font("Comic Sans", Font.BOLD, 15));
 		g.drawString("Tenia que hacerlo.", 5, 20);
 		player1.render(g,player1.SetColor(player1.getId()));
-
+		lvlmanager.draw(g, currentlvl);
 	}
 }

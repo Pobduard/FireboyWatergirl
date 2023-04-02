@@ -11,9 +11,14 @@ public class game {
 	// private Keyinputs key;
 	private TimerTask taskUpdate, taskDraw;
 	private final int FPS = 120, UPS = 200;
+
+	public static final int Tile_Size = 16;
+	public static final int Game_Tiles_In_Height = 30, Game_Tiles_In_Width = 40;
+	public static final int Game_Height = (Tile_Size*Game_Tiles_In_Height);
+	public static final int Game_Width = (Tile_Size*Game_Tiles_In_Width);
 	
 	public game(){
-	panel = new MyPanel();
+	panel = new MyPanel(this);
 	frame = new MyFrame(panel, "Jaiber Arellano's & Williangel Quevedo's - Fireboy and Watergirl");
 	key = new KeyInputs(this);
 	mouse = new MouseInputs(this);
