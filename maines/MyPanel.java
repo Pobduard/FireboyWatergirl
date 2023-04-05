@@ -1,35 +1,42 @@
 package maines;
 import javax.swing.*;
 
-import Entities.Player;
-
 import java.awt.*;
-import maines.game;
 import levels.levelmanager;
 
+/** 
+ * Clase principal en la que se mostrara todo el juego  */
 public class MyPanel extends JPanel{
 	game Mygame;
 	levelmanager lvlmanager;
-	int[][] currentlvl;
 
-	public MyPanel(game game){
-		this.Mygame= game;
-		this.lvlmanager = new levelmanager(game);
+	/** 
+	 * Constructor para la clase {@link #MyPanel(game)}  */
+	public MyPanel(game Mygame){
+		this.Mygame= Mygame;
+		this.lvlmanager = new levelmanager(Mygame);
 		this.setPreferredSize(new Dimension(game.Game_Width, game.Game_Height));
-		selectLevel(1);
     }
     
+	/** Empieza la cadena de Actualizaciones de Datos
+	 * @see levelmanager
+	*/
 	public void update(){
 		lvlmanager.update();
 	}
 
-	public void selectLevel(int lvlNumber){
-		currentlvl = lvlmanager.getLeveldata(lvlNumber);
+	/** Empieza la cadena de Dibujo de los Graficos
+	 * @see java.awt.Graphics
+	 * @see levelmanager
+	*/
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+  		lvlmanager.draw(g);
 	}
 
-	public void paintComponent(Graphics g){
-  		lvlmanager.draw(g);
-		g.setFont(new Font("Comic Sans", Font.BOLD, 15));
-		g.drawString("Tenia que hacerlo.", 5, 20);
+	/** 
+	 * @return {@code lvlmanager} de la clase */
+	public levelmanager getLvlManager(){
+		return this.lvlmanager;
 	}
 }

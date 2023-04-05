@@ -96,8 +96,9 @@ public class Player extends Entity {
     public void IsLethal(){
 		int xInsideTile = (int)this.hitbox.x / game.Tile_Size;
 		int yInsideTile = (int)this.hitbox.y / game.Tile_Size;
+        int levelData[][] = level.getLvlData();
 
-		int currentTile = level.getLvlData()[xInsideTile][yInsideTile];
+		int currentTile = levelData[xInsideTile][yInsideTile];
 
 		//34 = Toxico, 153 = Agua, 237 = Lava 
 		if(currentTile == 34){this.Alive = false;}                  //Para Ambos
@@ -173,5 +174,11 @@ public class Player extends Entity {
      * Cambia la condicion del boolean*/
     public void setJump(boolean jump) {
         this.jump = jump;
+    }
+
+    /**
+     * Cambia el Nivel a verficar*/
+    public void setlvl(leveldata lvl) {
+        this.level = lvl;
     }
 }

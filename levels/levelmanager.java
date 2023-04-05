@@ -6,40 +6,36 @@ import utilz.LoadImg;
 import java.awt.*;
 import java.awt.image.*;
 
+import Entities.*;
+import gamestates.levelstates;
+
 /** 
  * Clase Principal para manejar todos los carros correspondientes a un nivel */
 public class levelmanager {
 	private game Mygame;
 	private BufferedImage[] levelSprites;
-	private int lvl;
 	private leveldata lvlOne, lvlTwo;
+	private Player player;
 
 	/** Constructor para la clase {@link #levelmanager(game)} */
 	public levelmanager(game Mygame){
 		this.Mygame = Mygame;
-		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), (game.Tile_Size*2), (game.Game_Height - game.Tile_Size*2 + 2),
-		(game.Tile_Size*2), (game.Game_Height - game.Tile_Size*6 + 2));
-		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS), (game.Tile_Size*2), (game.Game_Height - game.Tile_Size*2 + 2),
-		(game.Tile_Size*2), (game.Game_Height - game.Tile_Size*2 + 2));
-		this.lvl = 1;
+		this.player = new Player(0, 0, game.Tile_Size-12, game.Tile_Size*2-12, null);
+		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), this.player);
+		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS), this.player);
 	}
 
 	/** 
-	 * @return El Objeto {@link leveldata} en que nos encontramos */
-	public leveldata getCurrentLvl(int lvl){
-		if(lvl == 2){return lvlTwo;}
-		return lvlOne;
-	}
-
-	/** 
-	 * @return La {@code lvlData[][]} del {@link leveldata} en que nos encontramos */
-	public int[][] getLeveldata(int lvl){
+	 * @return La {@code lvlData[][]} del {@link leveldata} en que nos encontramos 
+	 * @see #levelstates.levelstate
+	 * */
+	public int[][] getLeveldata(){
 		int[][] returlvl = null;
-		switch (lvl) {
-			case 1:
+		switch (levelstates.levelstate) {
+			case LVL1:
 				returlvl = this.lvlOne.getLvlData();
 				break;
-			case 2:
+			case LVL2:
 				returlvl =  this.lvlTwo.getLvlData();
 				break;
 		
@@ -144,25 +140,35 @@ public class levelmanager {
 
 	/** 
 	 * Actualiza Todos los datos correspondientes al Nivel en el que nos encontramos
-	 * @see #getCurrentLvl(int)*/
+	 * @see #levelstates.levelstate*/
 	public void update(){
-		getCurrentLvl(this.lvl).update();
+		if(levelstates.levelstate == levelstates.LVL1){
+			player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*2+2);
+			player.setlvl(lvlOne);
+			player.update();
+			lvlOne.update();}
+		if(levelstates.levelstate == levelstates.LVL2){
+			player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6);
+			player.setlvl(lvlTwo);
+			player.update();
+			lvlTwo.update();}
 	}
 
 	/** 
 	 * Dibuja Todo lo Relacionado al Nivel en el que nos encontramos 
-	 * @see #getCurrentLvl(int)
+	 * @see #levelstates.levelstate
 	*/
 	public void draw(Graphics g){
-		drawlvldebug(g, this.lvl);
+		drawlvldebug(g);
+		player.draw(g);
 	}
 
 	/** 
 	 * Dibuja el Nivel en el que nos encontramos 
-	 * @see #getCurrentLvl(int)
+	 * @see #levelstates.levelstate
 	*/
-	public void drawlvldebug(Graphics g, int lvl){
-		int[][] currentLvl = getLeveldata(lvl); 
+	public void drawlvldebug(Graphics g){
+		int[][] currentLvl = getLeveldata(); 
 		for (int i = 0; i < game.Game_Tiles_In_Width; i++) {
 			for (int j = 0; j < game.Game_Tiles_In_Height; j++) {
 				g.setColor(checkPixelValue(currentLvl[i][j]));
@@ -172,8 +178,8 @@ public class levelmanager {
 	}
 
 	/** 
-	 * Selecciona el nivel a jugar */
-	public void setLvl(int lvl){
-		this.lvl = lvl;
+	 * @return {@code Player} de la clase */
+	public Player getPlayer(){
+		return this.player;
 	}
 }

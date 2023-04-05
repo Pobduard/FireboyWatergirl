@@ -19,14 +19,7 @@ public class KeyInputs implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		switch (gamestates.gamestate) {
 			case PLAYING:
-				if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)
-					break;
+				this.Mygame.getPlaying().KeyPressed(e);;
 				break;
 			default:
 				break;
@@ -37,14 +30,7 @@ public class KeyInputs implements KeyListener {
 	public void keyReleased(KeyEvent e) {
 		switch (gamestates.gamestate) {
 			case PLAYING:
-				if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)
-					break;
+				this.Mygame.getPlaying().KeyReleased(e);
 				break;
 			default:
 				break;
