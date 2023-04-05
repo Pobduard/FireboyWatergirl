@@ -3,7 +3,7 @@ package Entities;
 import java.awt.*;
 import levels.leveldata;
 import maines.game;
-import gamestates.gamestates;
+import gamestates.GameStates;
 import utilz.HelpMethods;
 
 /**Clase Jugador 
@@ -14,9 +14,9 @@ import utilz.HelpMethods;
 */
 public class Player extends Entity {
     private leveldata level;
-    private boolean right ,left ,inAir ,Alive, jump;
+    private boolean right ,left ,inAir , jump, Alive = true;
     private int type;
-    private float xSpeed = 1.5f, ySpeed = -2.5f, gravity = 0.02f;
+    private float xSpeed = 0.5f, ySpeed = -2.5f, gravity = 0.02f;
 
     /**Constructor<p>
      * Crear la {@code hitbox}
@@ -32,7 +32,7 @@ public class Player extends Entity {
     /**
      * llama el resto de updates del jugador Solo si se esta jugando*/
     public void update(){
-        if(gamestates.gamestate == gamestates.PLAYING){
+        if(GameStates.gamestate == GameStates.PLAYING){
             updatePos();
             IsLethal();
             updateAnimation();
@@ -43,7 +43,8 @@ public class Player extends Entity {
     /**
      * Dibuja el Jugador en la posicion de su hitbox Solo si se esta jugando*/
     public void draw(Graphics g){
-        if(gamestates.gamestate == gamestates.PLAYING){
+        if(GameStates.gamestate == GameStates.PLAYING){
+            g.setColor(Color.BLACK);
             g.fillRect((int)this.hitbox.x, (int)this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height);
             drawHitbox(g);
         }
@@ -57,15 +58,14 @@ public class Player extends Entity {
             return;}
 
         if(!inAir){
-            this.jump = true;
-            return;} 
+            this.jump = true;} 
         else {
             this.jump = false;
             this.hitbox.y += gravity;}
         if(!jump){
             this.hitbox.y += ySpeed;}
 
-        if((this.right && this.left) || (!this.right && !this.left)){
+        if((this.right && this.left)){
             return;}
 
         if(this.right){
@@ -79,6 +79,15 @@ public class Player extends Entity {
                 this.hitbox.x -= xSpeed;
             }
         }
+    }
+
+    /**
+     * Pone en Falso todos los Boleanos de Movimiento  */
+    private void setBoleans(){
+        this.right = true;
+        this.left = false;
+        this.inAir = false;
+        this.jump = false;
     }
 
     /**
@@ -141,15 +150,6 @@ public class Player extends Entity {
       */
     public void setLeft(boolean left) {
         this.left = left;
-    }
-
-    /**
-     * Pone en Falso todos los Boleanos de Movimiento  */
-    private void setBoleans(){
-        this.right = false;
-        this.left = false;
-        this.inAir = false;
-        this.jump = false;
     }
 
     /**

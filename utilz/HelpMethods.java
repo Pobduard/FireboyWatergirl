@@ -14,11 +14,11 @@ public class HelpMethods {
 				if(!IsSolid(x, y, lvlData)){
 					if(!IsSolid(x + width, y, lvlData)){
 						return true;
-					}
-				}
-			}
-		}
-		return false;
+
+					}else {return false;}
+				}else {return false;}
+			}else {return false;}
+		}else {return false;}
 	}
 	
 	/**@return {@code false} solo si el tipo de "bloque" donde se encuentran {@code (x,y)} dentro del 
@@ -30,12 +30,20 @@ public class HelpMethods {
 		int xInsideTile = (int)x / game.Tile_Size;
 		int yInsideTile = (int)y / game.Tile_Size;
 
+		//-1 por recordar que el Array Empieza en 0, tons llega hasta 39
+		if(xInsideTile > game.Game_Tiles_In_Width-1){
+			xInsideTile = game.Game_Tiles_In_Width-1;}
+
+		//-1 por recordar que el Array Empieza en 0, tons llega hasta 29
+		if(yInsideTile > game.Game_Tiles_In_Height-1){
+			yInsideTile = game.Game_Tiles_In_Height-1;}
+
 		int currentTile = lvlData[xInsideTile][yInsideTile];
 
 		//255 = Aire, 34 = Toxico, 153 = Agua, 237 = Lava 
-		if(currentTile != 255 || currentTile != 34 || currentTile != 237 || currentTile != 153){
-			return true;}
-		else {return false;}
+		if(currentTile == 255 || currentTile == 34 || currentTile == 237 || currentTile == 153){
+			return false;}
+		else {return true;}
 	}
 
 }

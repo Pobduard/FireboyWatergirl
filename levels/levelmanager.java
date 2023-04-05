@@ -7,22 +7,24 @@ import java.awt.*;
 import java.awt.image.*;
 
 import Entities.*;
-import gamestates.levelstates;
+import gamestates.GameStates;
+import gamestates.LevelStates;
 
 /** 
  * Clase Principal para manejar todos los carros correspondientes a un nivel */
 public class levelmanager {
 	private game Mygame;
 	private BufferedImage[] levelSprites;
-	private leveldata lvlOne, lvlTwo;
+	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
 
 	/** Constructor para la clase {@link #levelmanager(game)} */
 	public levelmanager(game Mygame){
 		this.Mygame = Mygame;
-		this.player = new Player(0, 0, game.Tile_Size-12, game.Tile_Size*2-12, null);
+		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, game.Tile_Size-12, game.Tile_Size*2-12, null);
 		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), this.player);
 		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS), this.player);
+		lvlTre = new leveldata(setLvlData(LoadImg.LEVEL_TRE), this.player);
 	}
 
 	/** 
@@ -31,12 +33,15 @@ public class levelmanager {
 	 * */
 	public int[][] getLeveldata(){
 		int[][] returlvl = null;
-		switch (levelstates.levelstate) {
+		switch (LevelStates.levelstate) {
 			case LVL1:
 				returlvl = this.lvlOne.getLvlData();
 				break;
 			case LVL2:
 				returlvl =  this.lvlTwo.getLvlData();
+				break;
+			case LVL3:
+				returlvl =  this.lvlTre.getLvlData();
 				break;
 		
 			default:
@@ -142,14 +147,19 @@ public class levelmanager {
 	 * Actualiza Todos los datos correspondientes al Nivel en el que nos encontramos
 	 * @see #levelstates.levelstate*/
 	public void update(){
-		if(levelstates.levelstate == levelstates.LVL1){
+		if(LevelStates.levelstate == LevelStates.LVL1){
 			player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*2+2);
 			player.setlvl(lvlOne);
 			player.update();
 			lvlOne.update();}
-		if(levelstates.levelstate == levelstates.LVL2){
+		if(LevelStates.levelstate == LevelStates.LVL2){
 			player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6);
 			player.setlvl(lvlTwo);
+			player.update();
+			lvlTwo.update();}
+		if(LevelStates.levelstate == LevelStates.LVL3){
+			player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6);
+			player.setlvl(lvlTre);
 			player.update();
 			lvlTwo.update();}
 	}
@@ -159,8 +169,9 @@ public class levelmanager {
 	 * @see #levelstates.levelstate
 	*/
 	public void draw(Graphics g){
-		drawlvldebug(g);
-		player.draw(g);
+		if(GameStates.gamestate == GameStates.PLAYING){		
+			drawlvldebug(g);
+			player.draw(g);}
 	}
 
 	/** 

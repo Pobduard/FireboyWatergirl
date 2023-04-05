@@ -28,12 +28,14 @@ public class Playing implements StateMethods{
 			//+LEFT
 			case KeyEvent.VK_A:
 			case KeyEvent.VK_LEFT:
+				System.out.println("Left");
 				this.player.setLeft(true);
 				break;
 			//+RIGHT
 			case KeyEvent.VK_D:
 			case KeyEvent.VK_RIGHT:
 				this.player.setRight(true);
+				System.out.println("Right");
 				break;
 			//+ Espacio
 			case KeyEvent.VK_SPACE:
