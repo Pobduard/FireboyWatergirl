@@ -6,17 +6,33 @@ import utilz.LoadImg;
 import java.awt.*;
 import java.awt.image.*;
 
+/** 
+ * Clase Principal para manejar todos los carros correspondientes a un nivel */
 public class levelmanager {
 	private game Mygame;
 	private BufferedImage[] levelSprites;
+	private int lvl;
 	private leveldata lvlOne, lvlTwo;
 
-	public levelmanager(game game){
-		this.Mygame = game;
-		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL));
-		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS));
+	/** Constructor para la clase {@link #levelmanager(game)} */
+	public levelmanager(game Mygame){
+		this.Mygame = Mygame;
+		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), (game.Tile_Size*2), (game.Game_Height - game.Tile_Size*2 + 2),
+		(game.Tile_Size*2), (game.Game_Height - game.Tile_Size*6 + 2));
+		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS), (game.Tile_Size*2), (game.Game_Height - game.Tile_Size*2 + 2),
+		(game.Tile_Size*2), (game.Game_Height - game.Tile_Size*2 + 2));
+		this.lvl = 1;
 	}
 
+	/** 
+	 * @return El Objeto {@link leveldata} en que nos encontramos */
+	public leveldata getCurrentLvl(int lvl){
+		if(lvl == 2){return lvlTwo;}
+		return lvlOne;
+	}
+
+	/** 
+	 * @return La {@code lvlData[][]} del {@link leveldata} en que nos encontramos */
 	public int[][] getLeveldata(int lvl){
 		int[][] returlvl = null;
 		switch (lvl) {
@@ -33,6 +49,9 @@ public class levelmanager {
 		return returlvl;
 	}
 
+	/** 
+	 * @return La {@code lvlData[][]} dependiendo de la lectura de los pixeles de la imagen
+	 * @param lvlImgPath La Direccion en {@code String} de la imagen de pixeles que representa el nivel*/
 	public int[][] setLvlData(String lvlImgPath){
 		BufferedImage img = LoadImg.GetImage(lvlImgPath);
 		int[][] lvlData = new int[img.getWidth()][img.getHeight()];
@@ -48,10 +67,13 @@ public class levelmanager {
 		return lvlData;
 	}
 
-	public static Color checkPixelValue(int value){
+	/** 
+	 * Para Debuggin, Dependiendo de el valor leido en {@code lvlData[][]} imprime en pantalla un bloque de color predeterminado
+	 * @see java.awt.color*/
+	public static Color checkPixelValue(int valor){
 		Color returnColor = Color.LIGHT_GRAY;
 
-		switch (value) {
+		switch (valor) {
 			case 255:	//& Aire
 				returnColor = Color.WHITE;
 				break;
@@ -120,12 +142,38 @@ public class levelmanager {
 		return returnColor;
 	}
 
-	public void draw(Graphics g, int[][] currentLvl){
+	/** 
+	 * Actualiza Todos los datos correspondientes al Nivel en el que nos encontramos
+	 * @see #getCurrentLvl(int)*/
+	public void update(){
+		getCurrentLvl(this.lvl).update();
+	}
+
+	/** 
+	 * Dibuja Todo lo Relacionado al Nivel en el que nos encontramos 
+	 * @see #getCurrentLvl(int)
+	*/
+	public void draw(Graphics g){
+		drawlvldebug(g, this.lvl);
+	}
+
+	/** 
+	 * Dibuja el Nivel en el que nos encontramos 
+	 * @see #getCurrentLvl(int)
+	*/
+	public void drawlvldebug(Graphics g, int lvl){
+		int[][] currentLvl = getLeveldata(lvl); 
 		for (int i = 0; i < game.Game_Tiles_In_Width; i++) {
 			for (int j = 0; j < game.Game_Tiles_In_Height; j++) {
 				g.setColor(checkPixelValue(currentLvl[i][j]));
 				g.fillRect(i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size);
 			}
 		}
+	}
+
+	/** 
+	 * Selecciona el nivel a jugar */
+	public void setLvl(int lvl){
+		this.lvl = lvl;
 	}
 }
