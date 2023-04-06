@@ -23,7 +23,7 @@ public abstract class Entity{
     protected float x, y;
     protected Rectangle2D.Float hitbox;
     /** Constructor*/
-    protected Entity(float x, float y, int height, int width){
+    protected Entity(float x, float y, int width, int height){
         this.x = x;
         this.y = y;
         this.width = width;
@@ -83,7 +83,7 @@ public abstract class Entity{
     * Igualar {@code (hitbox.x, hitbox.y)} a las {@code (x,y)} "ancladas"
      */
     public void resetHitboxPos(){
-    this.hitbox.x = (int)this.x;
-    this.hitbox.y = (int)this.y;
+    this.hitbox.x = this.x;
+    this.hitbox.y = this.y;
    }
 }

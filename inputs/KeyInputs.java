@@ -1,7 +1,7 @@
 package inputs;
 import java.awt.event.*;
 
-import gamestates.gamestates;
+import gamestates.GameStates;
 import maines.game;
 
 public class KeyInputs implements KeyListener {
@@ -17,16 +17,11 @@ public class KeyInputs implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		switch (gamestates.gamestate) {
+		switch (GameStates.gamestate) {
 			case PLAYING:
-				if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)
-					break;
+				this.Mygame.getPlaying().KeyPressed(e);
+				break;
+			case MAINMENU:
 				break;
 			default:
 				break;
@@ -35,16 +30,13 @@ public class KeyInputs implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		switch (gamestates.gamestate) {
+		switch (GameStates.gamestate) {
 			case PLAYING:
-				if(e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_LEFT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_W || e.getKeyCode() == KeyEvent.VK_UP)
-					break;
-				if(e.getKeyCode() == KeyEvent.VK_S || e.getKeyCode() == KeyEvent.VK_DOWN)
-					break;
+				this.Mygame.getPlaying().KeyReleased(e);
+				break;
+			case MAINMENU:
+				if(e.getKeyCode() == KeyEvent.VK_P){
+				GameStates.gamestate = GameStates.PLAYING;}
 				break;
 			default:
 				break;

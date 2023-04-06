@@ -2,14 +2,13 @@ package maines;
 
 import utilz.CreateTimerTask;
 import java.util.TimerTask;
-import inputs.*;
+import gamestates.*;
 /** 
- * Clase con los Datos PRincipales del juego, desde donde se crea lo Esencial para el juego e inicia todo */
+ * Clase con los Datos Principales del juego, desde donde se crea lo Esencial para el juego e inicia todo */
 public class game {
 	private MyFrame frame;
 	private MyPanel panel;
-	private KeyInputs key;
-	private MouseInputs mouse;
+	private Playing playing;
 	private TimerTask taskUpdate, taskDraw;
 	private final int FPS = 120, UPS = 200;
 
@@ -23,18 +22,26 @@ public class game {
 	public game(){
 	panel = new MyPanel(this);
 	frame = new MyFrame(panel, "Jaiber Arellano's & Williangel Quevedo's - Fireboy and Watergirl");
-	key = new KeyInputs(this);
-	mouse = new MouseInputs(this);
+	initClasses();
 
 	frame.add(panel);
-	panel.setFocusable(true);
-	panel.requestFocusInWindow();
+
 	frame.setVisible(true);
-
-
+	
+	
+	
 	initTask();
 	initUpdates();
 	initDraws();
+	
+	panel.setFocusable(true);
+	panel.requestFocus();
+	panel.requestFocusInWindow();
+	System.out.println(panel.isFocusOwner());
+	}
+
+	private void initClasses(){
+		playing = new Playing(this);
 	}
 
 	/**
@@ -72,5 +79,17 @@ public class game {
 	 * @see java.util.Timer*/
 	public void initDraws(){
 		CreateTimerTask.InitialiceTimerTask(taskDraw, "Draws-Timer", 0, Math.floorDiv(FPS, 100));
+	}
+
+	/** 
+	 * @return {@code Panel} de la clase (Para Manejar Inputs)*/
+	public MyPanel getPanel(){
+		return this.panel;
+	}
+
+	/** 
+	 * @return {@code Playing} de la clase (Para Manejar Inputs)*/
+	public Playing getPlaying(){
+		return this.playing;
 	}
 }

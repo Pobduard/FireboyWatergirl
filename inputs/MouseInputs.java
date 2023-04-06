@@ -2,7 +2,7 @@ package inputs;
 
 import java.awt.event.*;
 import maines.game;
-import gamestates.gamestates;
+import gamestates.GameStates;
 public class MouseInputs implements MouseListener{
 	private game Mygame;
 
@@ -16,7 +16,7 @@ public class MouseInputs implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		switch (gamestates.gamestate) {
+		switch (GameStates.gamestate) {
 			case MAINMENU:
 				break;
 			case LVLSELECTOR:
@@ -32,7 +32,7 @@ public class MouseInputs implements MouseListener{
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		switch (gamestates.gamestate) {
+		switch (GameStates.gamestate) {
 			case MAINMENU:
 				break;
 			case LVLSELECTOR:
