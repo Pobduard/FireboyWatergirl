@@ -17,7 +17,7 @@ public class levelmanager {
 	private BufferedImage[] levelSprites;
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
-	private int playerWidth = game.Tile_Size-6, playerHeight = game.Tile_Size*2-12;
+	private int playerWidth = game.Tile_Size-6, playerHeight = game.Tile_Size-6;
 
 	/** Constructor para la clase {@link #levelmanager(game)} */
 	public levelmanager(game Mygame){

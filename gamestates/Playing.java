@@ -77,6 +77,10 @@ public class Playing implements StateMethods{
 			case KeyEvent.VK_RIGHT:
 				this.player.setRight(false);
 				break;
+			//+ Espacio
+			case KeyEvent.VK_UP:
+				this.player.setcanJump(false);
+				break;
 			//+ MAINMENU
 			case KeyEvent.VK_P:
 				GameStates.gamestate = GameStates.MAINMENU;

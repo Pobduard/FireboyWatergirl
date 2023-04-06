@@ -16,7 +16,7 @@ public class Player extends Entity {
     private leveldata level;
     private boolean right ,left ,inAir , canJump, Alive = true;
     private int type;
-    private float playerSpeed = 0.9f, jumpSpeed = -2.5f, gravity = 0.2f;
+    private float playerSpeed = 0.9f, jumpSpeed = -2.5f, gravity = 0.02f;
     private float fallSpeedAfterCollision = 0.5f, airSpeed = 0f;
 
     /**Constructor<p>
@@ -87,8 +87,9 @@ public class Player extends Entity {
                 this.hitbox.y = HelpMethods.GetEntityYPosUnderRoofOrAboveFloor(this.hitbox, airSpeed);
 
                 if(this.airSpeed > 0){	//osease vamos abajo, por lo que tocamos el suelo
-                    resetInAir();}
-                else{				//Si no tocamos el suelo, tons el techo
+                    resetInAir();
+                }else
+                    {				//Si no tocamos el suelo, tons el techo
                     this.airSpeed = this.fallSpeedAfterCollision;}
 
                 updateXPos(xSpeed);
