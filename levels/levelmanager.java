@@ -17,11 +17,12 @@ public class levelmanager {
 	private BufferedImage[] levelSprites;
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
+	private int playerWidth = game.Tile_Size-6, playerHeight = game.Tile_Size*2-12;
 
 	/** Constructor para la clase {@link #levelmanager(game)} */
 	public levelmanager(game Mygame){
 		this.Mygame = Mygame;
-		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, game.Tile_Size-12, game.Tile_Size*2-12, null);
+		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, playerWidth, playerHeight, null);
 		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), this.player);
 		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS), this.player);
 		lvlTre = new leveldata(setLvlData(LoadImg.LEVEL_TRE), this.player);
@@ -70,7 +71,7 @@ public class levelmanager {
 
 	/** 
 	 * Para Debuggin, Dependiendo de el valor leido en {@code lvlData[][]} imprime en pantalla un bloque de color predeterminado
-	 * @see java.awt.color*/
+	 * @see java.awt.Color*/
 	public static Color checkPixelValue(int valor){
 		Color returnColor = Color.LIGHT_GRAY;
 

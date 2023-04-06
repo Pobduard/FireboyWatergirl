@@ -2,15 +2,12 @@ package maines;
 
 import utilz.CreateTimerTask;
 import java.util.TimerTask;
-import inputs.*;
 import gamestates.*;
 /** 
  * Clase con los Datos Principales del juego, desde donde se crea lo Esencial para el juego e inicia todo */
 public class game {
 	private MyFrame frame;
 	private MyPanel panel;
-	private KeyInputs key;
-	private MouseInputs mouse;
 	private Playing playing;
 	private TimerTask taskUpdate, taskDraw;
 	private final int FPS = 120, UPS = 200;
@@ -25,19 +22,22 @@ public class game {
 	public game(){
 	panel = new MyPanel(this);
 	frame = new MyFrame(panel, "Jaiber Arellano's & Williangel Quevedo's - Fireboy and Watergirl");
-	key = new KeyInputs(this);
-	mouse = new MouseInputs(this);
 	initClasses();
 
 	frame.add(panel);
-	panel.setFocusable(true);
-	panel.requestFocusInWindow();
+
 	frame.setVisible(true);
-
-
+	
+	
+	
 	initTask();
 	initUpdates();
 	initDraws();
+	
+	panel.setFocusable(true);
+	panel.requestFocus();
+	panel.requestFocusInWindow();
+	System.out.println(panel.isFocusOwner());
 	}
 
 	private void initClasses(){

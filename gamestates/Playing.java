@@ -28,18 +28,32 @@ public class Playing implements StateMethods{
 			//+LEFT
 			case KeyEvent.VK_A:
 			case KeyEvent.VK_LEFT:
-				System.out.println("Left");
 				this.player.setLeft(true);
 				break;
 			//+RIGHT
 			case KeyEvent.VK_D:
 			case KeyEvent.VK_RIGHT:
 				this.player.setRight(true);
-				System.out.println("Right");
 				break;
 			//+ Espacio
-			case KeyEvent.VK_SPACE:
-				this.player.setJump(true);
+			case KeyEvent.VK_UP:
+				this.player.setcanJump(true);
+				break;
+			//+ Espacio
+			case KeyEvent.VK_U:
+				this.player.setAlive(true);;
+				break;
+			//+ LVL1
+			case KeyEvent.VK_1:
+				LevelStates.levelstate = LevelStates.LVL1;
+				break;
+			//+ LVL2
+			case KeyEvent.VK_2:
+				LevelStates.levelstate = LevelStates.LVL2;
+				break;
+			//+ LVL3
+			case KeyEvent.VK_3:
+				LevelStates.levelstate = LevelStates.LVL3;
 				break;
 			//+ Escape
 			case KeyEvent.VK_ESCAPE:
@@ -48,7 +62,6 @@ public class Playing implements StateMethods{
 			default:
 				break;
 		}
-		System.out.println(e.getKeyCode());
 	}
 
 	@Override
@@ -64,9 +77,9 @@ public class Playing implements StateMethods{
 			case KeyEvent.VK_RIGHT:
 				this.player.setRight(false);
 				break;
-			//+ Espacio
-			case KeyEvent.VK_SPACE:
-				this.player.setJump(false);
+			//+ MAINMENU
+			case KeyEvent.VK_P:
+				GameStates.gamestate = GameStates.MAINMENU;
 				break;
 			//+ Escape
 			case KeyEvent.VK_ESCAPE:
