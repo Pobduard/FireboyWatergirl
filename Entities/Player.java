@@ -84,7 +84,7 @@ public class Player extends Entity {
 
             } else
                 {	//Si aqui no nos podemos mover, entonces es porque estamos en el piso, o colisionando con el techo
-                this.hitbox.y = HelpMethods.GetEntityYPosUnderRoofOrAboveFloor(this.hitbox, airSpeed);
+                this.hitbox.y = HelpMethods.GetEntityYPosInsideTile(this.hitbox, airSpeed);
 
                 if(this.airSpeed > 0){	//osease vamos abajo, por lo que tocamos el suelo
                     resetInAir();
@@ -106,7 +106,7 @@ public class Player extends Entity {
         if(HelpMethods.CanMoveHere((this.hitbox.x+xSpeed), this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height, level.getLvlData())){	//+ Chequea por lo que seria la sig Posicion, siguiente por la velocidad que lleve
             this.hitbox.x += xSpeed;
         }else {
-				this.hitbox.x = HelpMethods.GetEntityXPosNextToWall(this.hitbox, xSpeed);
+				this.hitbox.x = HelpMethods.GetEntityXPosInsideTile(this.hitbox, xSpeed);
 			}
     }
 
