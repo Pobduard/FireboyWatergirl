@@ -15,8 +15,7 @@ public class HelpMethods {
 			if(!IsSolid(x + width, y + height, lvlData)){
 				if(!IsSolid(x, y, lvlData)){
 					if(!IsSolid(x + width, y, lvlData)){
-						return true;
-
+										return true;
 					}else {return false;}
 				}else {return false;}
 			}else {return false;}
@@ -43,11 +42,33 @@ public class HelpMethods {
 			yInsideTile = game.Game_Tiles_In_Height-1;}
 
 		int currentTile = lvlData[xInsideTile][yInsideTile];
+		switch (currentTile) {
+			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+				return false;
+			default:
+				return true;
+		}
+	}
 
-		//255 = Aire, 34 = Toxico, 153 = Agua, 237 = Lava 
-		if(currentTile == 255 || currentTile == 34 || currentTile == 237 || currentTile == 153 || currentTile == 220 || currentTile == 5){
-			return false;}
-		else {return true;}
+	/**@return {@code false} solo si el tipo de "bloque" donde se encuentran {@code (x,y)} dentro del 
+	 * nivel {@code lvlData[x][y]} es considerado como "no Solido" */
+	public static boolean IsMiddleSolid(float x, float y, int width, int height, int[][] lvlData){
+		int xTile = (int)(x / game.Tile_Size);
+		int yTile = (int)(y / game.Tile_Size);
+
+		//-1 por recordar que el Array Empieza en 0, tons llega hasta 39
+		if(xTile > game.Game_Tiles_In_Width-1){
+			xTile = game.Game_Tiles_In_Width-1;}
+
+		//-1 por recordar que el Array Empieza en 0, tons llega hasta 29
+		if(yTile > game.Game_Tiles_In_Height-1){
+			yTile = game.Game_Tiles_In_Height-1;}
+
+		if((x > xTile && xTile > x+width) || (x > (xTile+game.Tile_Size) && (xTile+game.Tile_Size) > x+width)){
+			if((y > yTile && yTile > y+height) || (y > (yTile+game.Tile_Size) && (yTile+game.Tile_Size) > y+height)){
+				return false;
+			} else {return true;}
+		} else {return true;}
 	}
 
 	public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
@@ -58,33 +79,48 @@ public class HelpMethods {
 		return true;
 	}
 
-	public static float GetEntityXPosNextToWall(Rectangle2D.Float hitbox, float xSpeed){
+	public static float GetEntityXPosInsideTile(Rectangle2D.Float hitbox, float xSpeed){
 		//Da igual si la velociadad es 0, si oo es, no es necesario alguna colision
-		int currentTile = (int)(hitbox.x / game.Tile_Size);	//Encontrar en que tile estamos
+		int xInsideTile = (int)(hitbox.x / game.Tile_Size);	//Encontrar en que tile estamos
+		float tileXPos = xInsideTile * game.Tile_Size;		//Posicion al "inicio" del Tile 
 
 		if(xSpeed > 0){		//Si es verdadero, vamos a la derecha, vamos en +
-			int tileXPos = currentTile * game.Tile_Size;		//Asi encontramos que pixel especifico del Tile actual
-			int xOffSet = (int)(game.Tile_Size - hitbox.width);	//Cuanta diferencia hay entre el tile y el jugador
-			return tileXPos + xOffSet - 1;		//Regresar la posicion en la cual esta la colision, -1 porque si no nos pasaremos al siguiente Tile
+			float XReturn = 0f;
+			if(hitbox.width >= game.Tile_Size){
 
-		}	else {			//Izquierda
-			return currentTile * game.Tile_Size;		//Izquierda, el inicio, tons ya esta por default
-		}
+				float xOffSet = (int)(game.Tile_Size - hitbox.width); //Negativo
+				XReturn = tileXPos + hitbox.width + (xOffSet*2) - 0.1f;
+				return XReturn;
+			}else{
+				float xOffSet = (int)(game.Tile_Size - hitbox.height);
+				XReturn = tileXPos + xOffSet - 0.1f;
+				return  XReturn;
+				}
+		}else {
+			return tileXPos;
+			}
 	}
 
-	public static float GetEntityYPosUnderRoofOrAboveFloor(Rectangle2D.Float hitbox, float airSpeed) {
-		int currentTile = (int)(hitbox.y / game.Tile_Size);	//Encontrar en que tile estamos
+	public static float GetEntityYPosInsideTile(Rectangle2D.Float hitbox, float airSpeed) {
+		int yInsideTile = (int)(hitbox.y / game.Tile_Size);	//Encontrar en que tile estamos
+		float tileYPos = yInsideTile * game.Tile_Size;		//Posicion al "inicio" del Tile 
+		
 		if(airSpeed > 0){
+			float YReturn = 0f;
 			// Falling - Touching Floor
-			int tileYPos = currentTile * game.Tile_Size;
-			int yOffSet = (int)(game.Tile_Size - hitbox.height);
+			if(hitbox.height >= game.Tile_Size){
 
-			return  tileYPos + yOffSet - 1;
-
+				float yOffSet = (int)(game.Tile_Size - hitbox.height); //Negativo
+				YReturn = tileYPos + hitbox.height + (yOffSet*2) - 0.1f;
+				return YReturn;
+			}else{
+				float yOffSet = (int)(game.Tile_Size - hitbox.height);
+				YReturn = tileYPos + yOffSet - 0.1f;
+				return  YReturn;
+				}
 		}else {
-			// Jumping
-			return currentTile * game.Tile_Size;
-		}
+			return tileYPos;
+			}
 	}
 
 }

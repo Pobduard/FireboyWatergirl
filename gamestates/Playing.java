@@ -4,22 +4,24 @@ import java.awt.Graphics;
 import java.awt.event.*;
 
 import Entities.Player;
-import maines.game;
+import levels.levelmanager;
 
 public class Playing implements StateMethods{
-	private game Mygame;
+	private levelmanager lvlmanager;
 	private Player player;
-	public Playing(game Mygame) {
-		this.Mygame = Mygame;
-		this.player = Mygame.getPanel().getLvlManager().getPlayer();
+	public Playing() {
+		this.lvlmanager = new levelmanager();
+		this.player = this.lvlmanager.getPlayer();
 	}
 
 	@Override
 	public void update() {
+		this.lvlmanager.update();
 	}
 
 	@Override
 	public void draw(Graphics g) {
+		this.lvlmanager.draw(g);
 	}
 
 	@Override

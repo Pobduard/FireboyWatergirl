@@ -1,9 +1,15 @@
 package Entities;
 
+import java.awt.*;
 public class Bloques extends Entity{
-    private int id;
-    protected Bloques(int x, int y, int height, int width, int id) {
+    protected int id;
+    protected boolean collision = true;
+    protected Bloques(float x, float y, int height, int width, int id, boolean collision) {
         super(x, y, height, width);
         this.id = id;
+        this.collision = collision;
     }
+
+    public void update(){}
+    public void draw(Graphics g){}
 }

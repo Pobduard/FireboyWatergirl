@@ -1,23 +1,36 @@
 package levels;
 
 import Entities.*;
+import java.awt.*;
 
 public class leveldata{
 	private int lvlData[][];
+	private Bloques objData[][];
 	private Player player;
 	
 	/** Constructor para la clase {@link #leveldata(int[][])} 
 	 * @see #Entities.Player()
 	*/
-	public leveldata(int[][] data, Player player){
+	public leveldata(int[][] data, Bloques[][] obj){
 		this.lvlData = data;
-		this.player = player;
+		this.objData = obj;
 	}
 
 	/** 
 	 * Actualiza los datos correspondientes al nivel */
 	public void update(){
+		// TODO: HERE
+		// updateObjData();
 		resetPlayerHitboxPos();
+	}
+
+	public void draw(Graphics g){
+		for (int i = 0; i < this.objData.length; i++) {
+			for (int j = 0; j < this.objData[i].length; j++) {
+				if(this.objData[i][j] != null){
+					this.objData[i][j].draw(g);}
+			}
+		}
 	}
 
 	/** 
@@ -26,6 +39,9 @@ public class leveldata{
 		return this.lvlData;
 	}
 
+	public Bloques[][] getObjData(){
+		return this.objData;
+	}
 
 	/**
 	 * @return {@code Player} del nivel correspondiente */
@@ -35,4 +51,20 @@ public class leveldata{
 		}
 	}
 
+	private void updateObjData(){
+		for (int i = 0; i < this.objData.length; i++) {
+			for (int j = 0; j < this.objData[i].length; j++) {
+				if(this.objData[i][j] != null){
+					this.objData[i][j].update();}
+			}
+		}
+	}
+
+	public void setPlayer(Player player){
+		this.player = player;
+	}
+
+	public Object isActive(){
+		return this.getClass();
+	}
 }

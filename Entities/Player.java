@@ -1,10 +1,15 @@
 package Entities;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
 import levels.leveldata;
 import maines.game;
 import gamestates.GameStates;
 import utilz.HelpMethods;
+import utilz.LoadImg;
+
+import static utilz.Constants.PlayerConstants.*;
 
 /**Clase Jugador 
  * @param right si es cierta, el jugador esta moviendose a la derecha
@@ -13,8 +18,11 @@ import utilz.HelpMethods;
  * @param IsAlive si es cierta, el jugador esta vivo/en juego
 */
 public class Player extends Entity {
+    private BufferedImage Sprites[][];
     private leveldata level;
-    private boolean right ,left ,inAir , canJump, Alive = true;
+    private int aniTick, aniIndex, aniSpeed = 25;
+    private int playerAction = IDLE;
+    private boolean moving, right ,left ,inAir , canJump, Alive = true;
     private int type;
     private float playerSpeed = 0.9f, jumpSpeed = -2.5f, gravity = 0.02f;
     private float fallSpeedAfterCollision = 0.5f, airSpeed = 0f;
@@ -22,10 +30,12 @@ public class Player extends Entity {
     /**Constructor<p>
      * Crear la {@code hitbox}
     */
-    public Player(float x, float y, int width, int height, leveldata level){
+    public Player(float x, float y, int width, int height, leveldata level, int type){
        super(x, y, height, width);
        this.level = level;
+       this.type = type;
        createHitbox(x,y,width,height);
+       loadAnimations(type);
        setBoleans();
     }
 
@@ -42,11 +52,58 @@ public class Player extends Entity {
     }
 
     /**
+     * Carga las animaciones correspondientes de cada personaje  */
+    private void loadAnimations(int type){
+        if(type == 0){  //"Fire"
+            BufferedImage Idle = LoadImg.GetImage(LoadImg.MARIO_IDLE);
+            BufferedImage Jump = LoadImg.GetImage(LoadImg.MARIO_JUMP);
+            BufferedImage Fall = LoadImg.GetImage(LoadImg.MARIO_FALL);
+            BufferedImage img = LoadImg.GetImage(LoadImg.MARIO_MOVE);
+            BufferedImage[] Movement = new BufferedImage[8];
+            for (int i = 0; i < Movement.length; i++) {
+                Movement[i] = img.getSubimage(i*16, 0, 16, 32);
+            }
+            this.Sprites = new BufferedImage[4][8];
+            this.Sprites[0][0] = Idle;
+            this.Sprites[1] = Movement;
+            this.Sprites[2][0] = Jump;
+            this.Sprites[3][0] = Fall;
+        };
+        if(type == 1){  //"Wa'er"
+        BufferedImage Idle = LoadImg.GetImage(LoadImg.LUIGI_IDLE);
+        BufferedImage Jump = LoadImg.GetImage(LoadImg.LUIGI_JUMP);
+        BufferedImage Fall = LoadImg.GetImage(LoadImg.LUIGI_FALL);
+        BufferedImage img = LoadImg.GetImage(LoadImg.LUIGI_MOVE);
+        BufferedImage[] Movement = new BufferedImage[8];
+        for (int i = 0; i < Movement.length; i++) {
+            Movement[i] = img.getSubimage(i*15, 0, 15, 36);
+        }
+        this.Sprites = new BufferedImage[4][8];
+        this.Sprites[0][0] = Idle;
+        this.Sprites[1] = Movement;
+        this.Sprites[2][0] = Jump;
+        this.Sprites[3][0] = Fall;
+        };
+    }
+
+    /** 
+     * @return {@code type} */
+    private int playerType(){
+        return this.type;
+    }
+
+    /**
      * Dibuja el Jugador en la posicion de su hitbox Solo si se esta jugando*/
     public void draw(Graphics g){
         if(GameStates.gamestate == GameStates.PLAYING){
-            g.setColor(Color.BLACK);
-            g.fillRect((int)this.hitbox.x, (int)this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height);
+            // g.setColor(Color.BLACK);
+            // g.fillRect((int)this.hitbox.x, (int)this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height);
+            if(this.left && playerAction == RUNNING){
+                g.drawImage(this.Sprites[playerAction][aniIndex], (int)(this.hitbox.x+this.hitbox.width), (int)this.hitbox.y, -(int)this.hitbox.width, (int)this.hitbox.height,null);
+            }
+            else{
+                g.drawImage(this.Sprites[playerAction][aniIndex], (int)this.hitbox.x, (int)this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height, null);
+            }
             drawHitbox(g);
         }
     }
@@ -54,6 +111,7 @@ public class Player extends Entity {
     /**
      * Actualiza la posicion dependiendo de sus atributos booleanos*/
     private void updatePos(){
+        this.moving= false;
         if(this.canJump){
             jump();}
 
@@ -84,7 +142,7 @@ public class Player extends Entity {
 
             } else
                 {	//Si aqui no nos podemos mover, entonces es porque estamos en el piso, o colisionando con el techo
-                this.hitbox.y = HelpMethods.GetEntityYPosUnderRoofOrAboveFloor(this.hitbox, airSpeed);
+                this.hitbox.y = HelpMethods.GetEntityYPosInsideTile(this.hitbox, airSpeed);
 
                 if(this.airSpeed > 0){	//osease vamos abajo, por lo que tocamos el suelo
                     resetInAir();
@@ -98,23 +156,29 @@ public class Player extends Entity {
         } else
             {    //+ Accion en X si no estamos en el aire
             updateXPos(xSpeed);}
+        this.moving = true;
 
     }
 
-    /** Actualiza la Posicion en la X del Player  */
+    /** 
+     * Actualiza la Posicion en la X del Player  */
     private void updateXPos(float xSpeed){
         if(HelpMethods.CanMoveHere((this.hitbox.x+xSpeed), this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height, level.getLvlData())){	//+ Chequea por lo que seria la sig Posicion, siguiente por la velocidad que lleve
             this.hitbox.x += xSpeed;
         }else {
-				this.hitbox.x = HelpMethods.GetEntityXPosNextToWall(this.hitbox, xSpeed);
+				this.hitbox.x = HelpMethods.GetEntityXPosInsideTile(this.hitbox, xSpeed);
 			}
     }
 
+    /** 
+     * Resetea el estado de {@code inAir} del personaje, y reinicia su {@code airSpeed} */
     private void resetInAir() {
 		this.inAir = false;
 		this.airSpeed = 0;
 	}
 
+    /** 
+     * Cambia los Estados del Personaje para que en los chekeos "pueda saltar"  */
     private void jump(){
         if(this.inAir){return;}
         else{
@@ -125,6 +189,7 @@ public class Player extends Entity {
     /**
      * Pone en Falso todos los Boleanos de Movimiento  */
     private void setBoleans(){
+        this.moving = false;
         this.right = false;
         this.left = false;
         this.inAir = false;
@@ -133,11 +198,38 @@ public class Player extends Entity {
 
     /**
      * Actualiza la Animacion*/
-    private void updateAnimation(){}
+    private void updateAnimation(){
+        aniTick++;
+		if(aniTick >= aniSpeed){
+			aniTick = 0;
+			aniIndex++;
+			if(aniIndex >= GetSpriteAmount(playerAction)){
+				aniIndex = 0;
+			}
+		}
+    }
+
+    /** 
+     * Resetea los cambios en la Animacion para que se haga un bucle  */
+    private void resetAnimationTick(){
+        this.aniTick = 0;
+        this.aniIndex = 0;
+    }
 
     /**
      * Selecciona la animacion, dependiendo de los atributos del personaje*/
-    private void setAnimation(){}
+    private void setAnimation(){
+        int startAni = playerAction;
+        if(moving){playerAction = RUNNING;}
+        else{playerAction = IDLE;}
+
+        if(inAir){
+            if(airSpeed < 0){playerAction = JUMP;}
+            else{playerAction = FALL;}
+        }
+
+        if(startAni != playerAction){resetAnimationTick();}
+    }
 
     /** 
      * Determina si el jugador colsiono con algo "Letal", tomando en cuenta tipo de jugador es.
@@ -160,8 +252,11 @@ public class Player extends Entity {
 
 		//34 = Toxico, 153 = Agua, 237 = Lava 
 		if(currentTile == 34){this.Alive = false;}                  //Para Ambos
-        if(type == 0 && currentTile == 153){this.Alive = false;}    //Para FireBoy
-        if(type == 1 && currentTile == 237){this.Alive = false;}    //Para Watergirl
+        if(playerType() == 0 && currentTile == 153){this.Alive = false;}    //Para FireBoy
+        if(playerType() == 1 && currentTile == 237){this.Alive = false;}    //Para Watergirl
+
+        if(this.hitbox.x < 0 || this.hitbox.x > game.Game_Width){this.Alive = false;}
+		if(this.hitbox.y < 0 || this.hitbox.y > game.Game_Height){this.Alive = false;}
 	}
     
     /** 
