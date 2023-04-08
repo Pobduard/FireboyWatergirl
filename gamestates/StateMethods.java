@@ -15,4 +15,5 @@ public interface StateMethods {
 	public void MouseEntered(MouseEvent e);
 	public void MouseExited(MouseEvent e);
 	public void MouseDragged(MouseEvent e);
+	
 }

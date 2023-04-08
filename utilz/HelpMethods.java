@@ -15,14 +15,7 @@ public class HelpMethods {
 			if(!IsSolid(x + width, y + height, lvlData)){
 				if(!IsSolid(x, y, lvlData)){
 					if(!IsSolid(x + width, y, lvlData)){
-
-						if(!IsMiddleSolid(x, (y+height), lvlData)){
-								if(!IsMiddleSolid((x + width), (y + height), lvlData)){
 										return true;
-				
-							}else {return false;}
-						}else {return false;}
-
 					}else {return false;}
 				}else {return false;}
 			}else {return false;}
@@ -49,37 +42,33 @@ public class HelpMethods {
 			yInsideTile = game.Game_Tiles_In_Height-1;}
 
 		int currentTile = lvlData[xInsideTile][yInsideTile];
-
-		//255 = Aire, 34 = Toxico, 153 = Agua, 237 = Lava 
-		if(currentTile == 255 || currentTile == 34 || currentTile == 237 || currentTile == 153 
-		|| currentTile == 220 || currentTile == 5 || currentTile == 84 || currentTile == 168 
-		|| currentTile == 180 || currentTile == 235){
-			return false;}
-		else {return true;}
+		switch (currentTile) {
+			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+				return false;
+			default:
+				return true;
+		}
 	}
 
 	/**@return {@code false} solo si el tipo de "bloque" donde se encuentran {@code (x,y)} dentro del 
 	 * nivel {@code lvlData[x][y]} es considerado como "no Solido" */
-	public static boolean IsMiddleSolid(float x, float y, int[][] lvlData){
-		int xMiddleTile = (int)(x / game.Tile_Size)/2;
-		int yMiddleTile = (int)(y / game.Tile_Size)/2;
+	public static boolean IsMiddleSolid(float x, float y, int width, int height, int[][] lvlData){
+		int xTile = (int)(x / game.Tile_Size);
+		int yTile = (int)(y / game.Tile_Size);
 
 		//-1 por recordar que el Array Empieza en 0, tons llega hasta 39
-		if(xMiddleTile > game.Game_Tiles_In_Width-1){
-			xMiddleTile = game.Game_Tiles_In_Width-1;}
+		if(xTile > game.Game_Tiles_In_Width-1){
+			xTile = game.Game_Tiles_In_Width-1;}
 
 		//-1 por recordar que el Array Empieza en 0, tons llega hasta 29
-		if(yMiddleTile > game.Game_Tiles_In_Height-1){
-			yMiddleTile = game.Game_Tiles_In_Height-1;}
+		if(yTile > game.Game_Tiles_In_Height-1){
+			yTile = game.Game_Tiles_In_Height-1;}
 
-		int currentTile = lvlData[xMiddleTile][yMiddleTile];
-
-		//255 = Aire, 34 = Toxico, 153 = Agua, 237 = Lava 
-		if(currentTile == 255 || currentTile == 34 || currentTile == 237 || currentTile == 153 
-		|| currentTile == 220 || currentTile == 5 || currentTile == 84 || currentTile == 168 
-		|| currentTile == 180 || currentTile == 235){
-			return false;}
-		else {return true;}
+		if((x > xTile && xTile > x+width) || (x > (xTile+game.Tile_Size) && (xTile+game.Tile_Size) > x+width)){
+			if((y > yTile && yTile > y+height) || (y > (yTile+game.Tile_Size) && (yTile+game.Tile_Size) > y+height)){
+				return false;
+			} else {return true;}
+		} else {return true;}
 	}
 
 	public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {

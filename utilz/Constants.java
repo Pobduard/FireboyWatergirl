@@ -23,6 +23,10 @@ public class Constants {
 		}
 	}
 
+	public static class MainMenuButton{
+		public static final int ButtonWidth = 140, ButtonHeight = 56;
+	}
+
 	public static class LiquidsConstants{
 		public static int LAVA_FLOW = 0;
 		public static int LAVA_RIGHT_SIDE = 1;

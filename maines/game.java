@@ -3,12 +3,14 @@ package maines;
 import utilz.CreateTimerTask;
 import java.util.TimerTask;
 import gamestates.*;
+
 /** 
  * Clase con los Datos Principales del juego, desde donde se crea lo Esencial para el juego e inicia todo */
 public class game {
 	private MyFrame frame;
 	private MyPanel panel;
 	private Playing playing;
+
 	private TimerTask taskUpdate, taskDraw;
 	private final int FPS = 120, UPS = 200;
 
@@ -88,4 +90,5 @@ public class game {
 	public Playing getPlaying(){
 		return this.playing;
 	}
+
 }
