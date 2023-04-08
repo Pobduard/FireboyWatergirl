@@ -15,7 +15,13 @@ public class HelpMethods {
 			if(!IsSolid(x + width, y + height, lvlData)){
 				if(!IsSolid(x, y, lvlData)){
 					if(!IsSolid(x + width, y, lvlData)){
-						return true;
+
+						if(!IsMiddleSolid(x, (y+height), lvlData)){
+								if(!IsMiddleSolid((x + width), (y + height), lvlData)){
+										return true;
+				
+							}else {return false;}
+						}else {return false;}
 
 					}else {return false;}
 				}else {return false;}
@@ -45,7 +51,33 @@ public class HelpMethods {
 		int currentTile = lvlData[xInsideTile][yInsideTile];
 
 		//255 = Aire, 34 = Toxico, 153 = Agua, 237 = Lava 
-		if(currentTile == 255 || currentTile == 34 || currentTile == 237 || currentTile == 153 || currentTile == 220 || currentTile == 5){
+		if(currentTile == 255 || currentTile == 34 || currentTile == 237 || currentTile == 153 
+		|| currentTile == 220 || currentTile == 5 || currentTile == 84 || currentTile == 168 
+		|| currentTile == 180 || currentTile == 235){
+			return false;}
+		else {return true;}
+	}
+
+	/**@return {@code false} solo si el tipo de "bloque" donde se encuentran {@code (x,y)} dentro del 
+	 * nivel {@code lvlData[x][y]} es considerado como "no Solido" */
+	public static boolean IsMiddleSolid(float x, float y, int[][] lvlData){
+		int xMiddleTile = (int)(x / game.Tile_Size)/2;
+		int yMiddleTile = (int)(y / game.Tile_Size)/2;
+
+		//-1 por recordar que el Array Empieza en 0, tons llega hasta 39
+		if(xMiddleTile > game.Game_Tiles_In_Width-1){
+			xMiddleTile = game.Game_Tiles_In_Width-1;}
+
+		//-1 por recordar que el Array Empieza en 0, tons llega hasta 29
+		if(yMiddleTile > game.Game_Tiles_In_Height-1){
+			yMiddleTile = game.Game_Tiles_In_Height-1;}
+
+		int currentTile = lvlData[xMiddleTile][yMiddleTile];
+
+		//255 = Aire, 34 = Toxico, 153 = Agua, 237 = Lava 
+		if(currentTile == 255 || currentTile == 34 || currentTile == 237 || currentTile == 153 
+		|| currentTile == 220 || currentTile == 5 || currentTile == 84 || currentTile == 168 
+		|| currentTile == 180 || currentTile == 235){
 			return false;}
 		else {return true;}
 	}

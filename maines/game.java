@@ -20,16 +20,13 @@ public class game {
 	/** 
 	 * Constructor para la clase {@link #game()}  */
 	public game(){
+	initClasses();
 	panel = new MyPanel(this);
 	frame = new MyFrame(panel, "Jaiber Arellano's & Williangel Quevedo's - Fireboy and Watergirl");
-	initClasses();
 
 	frame.add(panel);
 
 	frame.setVisible(true);
-	
-	
-	
 	initTask();
 	initUpdates();
 	initDraws();
@@ -37,11 +34,10 @@ public class game {
 	panel.setFocusable(true);
 	panel.requestFocus();
 	panel.requestFocusInWindow();
-	System.out.println(panel.isFocusOwner());
 	}
 
 	private void initClasses(){
-		playing = new Playing(this);
+		playing = new Playing();
 	}
 
 	/**

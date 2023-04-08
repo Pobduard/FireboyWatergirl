@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import levels.levelmanager;
 import inputs.*;
+import gamestates.GameStates;
 
 /** 
  * Clase principal en la que se mostrara todo el juego  */
@@ -22,14 +23,21 @@ public class MyPanel extends JPanel{
 		mouse = new MouseInputs(Mygame);
 		addKeyListener(key);
 		addMouseListener(mouse);
-		this.lvlmanager = new levelmanager(Mygame);
     }
     
 	/** Empieza la cadena de Actualizaciones de Datos
 	 * @see levelmanager
 	*/
 	public void update(){
-		lvlmanager.update();
+		switch (GameStates.gamestate) {
+			case PLAYING:
+				this.Mygame.getPlaying().update();
+				break;
+			case MAINMENU:
+				break;
+			default:
+				break;
+		}
 	}
 
 	/** Empieza la cadena de Dibujo de los Graficos
@@ -37,13 +45,15 @@ public class MyPanel extends JPanel{
 	 * @see levelmanager
 	*/
 	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-  		lvlmanager.draw(g);
+		switch (GameStates.gamestate) {
+			case PLAYING:
+				this.Mygame.getPlaying().draw(g);
+				break;
+			case MAINMENU:
+				break;
+			default:
+				break;
+		}
 	}
 
-	/** 
-	 * @return {@code lvlmanager} de la clase */
-	public levelmanager getLvlManager(){
-		return this.lvlmanager;
-	}
 }
