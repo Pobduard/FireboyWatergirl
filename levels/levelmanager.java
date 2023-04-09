@@ -13,6 +13,8 @@ import gamestates.LevelStates;
 /** 
  * Clase Principal para manejar todos los carros correspondientes a un nivel */
 public class levelmanager {
+	BufferedImage tile[] = new BufferedImage[4];
+	BufferedImage background;
 	private Bloques objData[][];
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
@@ -21,6 +23,7 @@ public class levelmanager {
 
 	/** Constructor para la clase {@link #levelmanager(game)} */
 	public levelmanager(){
+		initSprites();
 		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, playerWidth, playerHeight, null, 0);
 		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), setObjData(LoadImg.LEVEL_ONE_PIXIL));
 		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_TWO_PIXELS), setObjData(LoadImg.LEVEL_TWO_PIXELS));
@@ -160,38 +163,18 @@ public class levelmanager {
 			case 150:	//& PiedraMovible
 				returnColor = Color.darkGray;
 				break;
-			case 211:	//& Ruby
-			case 111:	//& Ruby
-				returnColor = Color.PINK;
-				break;
 			default:
 				break;
 		}
 
-		// switch (value) {
-		// 	case 255:	//& Aire
-		// 		returnColor = Color.WHITE;
-		// 		break;
-		// 	case 0:	//& Bloque
-		// 		returnColor = Color.BLACK;
-		// 		break;
-		// 	case 127:	//& Rampa
-		// 		returnColor = Color.GRAY;
-		// 		break;
-		// 	case 128:	//& Agua
-		// 		returnColor = Color.BLUE;
-		// 		break;
-		// 	case 200:	//& Lava
-		// 		returnColor = Color.RED;
-		// 		break;
-		// 	case 39:	//& Toxico
-		// 		returnColor = Color.GREEN;
-		// 		break;
-		// 	default:
-		// 		break;
-		// }
-
 		return returnColor;
+	}
+	
+	/** 
+	 *@return El Valor ubicado en {@code lvlData[][]} 
+	 * @see java.awt.Color*/
+	public static int getPixelValue(int i, int j, int[][] lvlData){
+		return lvlData[i][j];
 	}
 
 	/** 
@@ -217,7 +200,7 @@ public class levelmanager {
 				player.setlvl(lvlTre);
 				player.update();
 				refresObjData();
-				lvlTwo.update();}
+				lvlTre.update();}
 		}
 	}
 
@@ -227,13 +210,13 @@ public class levelmanager {
 	*/
 	public void draw(Graphics g){
 		if(GameStates.gamestate == GameStates.PLAYING){		
-			drawlvldebug(g);
+			drawlvl(g);
 			if(LevelStates.levelstate == LevelStates.LVL1){
 				lvlOne.draw(g);}
 			if(LevelStates.levelstate == LevelStates.LVL2){
 				lvlTwo.draw(g);}
 			if(LevelStates.levelstate == LevelStates.LVL3){
-				lvlTwo.draw(g);}
+				lvlTre.draw(g);}
 			player.draw(g);
 		}
 	}
@@ -242,14 +225,29 @@ public class levelmanager {
 	 * Dibuja el Nivel en el que nos encontramos 
 	 * @see #levelstates.levelstate
 	*/
-	public void drawlvldebug(Graphics g){
+	public void drawlvl(Graphics g){
+		g.drawImage(background, 0, 0, game.Game_Width, game.Game_Height, null);
 		int[][] currentLvl = getLeveldata(); 
 		for (int i = 0; i < game.Game_Tiles_In_Width; i++) {
 			for (int j = 0; j < game.Game_Tiles_In_Height; j++) {
+				// TODO: HERE LVL DEBUG
 				g.setColor(checkPixelValue(currentLvl[i][j]));
 				g.fillRect(i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size);
+
+				if(getPixelValue(i, j, currentLvl) == 156){
+					g.drawImage(tile[0], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
+				if(getPixelValue(i, j, currentLvl) == 150){
+					g.drawImage(tile[1], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
 			}
 		}
+	}
+
+	public void initSprites(){
+		BufferedImage img = LoadImg.GetResizedImage(LoadImg.TilesSprite, 24*4, 24);
+		for (int i = 0; i < tile.length; i++) {
+			this.tile[i] = img.getSubimage(i*24, 0, 24, 24);
+		}
+		this.background = LoadImg.GetResizedImage(LoadImg.Background1, game.Game_Width, game.Game_Height);
 	}
 
 	public void setPlayers(){

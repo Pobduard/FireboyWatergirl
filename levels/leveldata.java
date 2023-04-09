@@ -51,15 +51,6 @@ public class leveldata{
 		}
 	}
 
-	private void updateObjData(){
-		for (int i = 0; i < this.objData.length; i++) {
-			for (int j = 0; j < this.objData[i].length; j++) {
-				if(this.objData[i][j] != null){
-					this.objData[i][j].update();}
-			}
-		}
-	}
-
 	public void setPlayer(Player player){
 		this.player = player;
 	}

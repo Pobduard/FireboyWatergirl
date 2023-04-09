@@ -50,6 +50,8 @@ public class MyPanel extends JPanel{
 	 * @see levelmanager
 	*/
 	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		this.repaint();
 		switch (GameStates.gamestate) {
 			case PLAYING:
 				this.Mygame.getPlaying().draw(g);
@@ -60,7 +62,7 @@ public class MyPanel extends JPanel{
 			default:
 				break;
 		}
-		this.repaint();
+
 	}
 
 	private void isActive(){
