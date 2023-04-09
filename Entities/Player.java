@@ -176,7 +176,7 @@ public class Player extends Entity {
 
     /** 
      * Resetea el estado de {@code inAir} del personaje, y reinicia su {@code airSpeed} */
-    private void resetInAir() {
+    public void resetInAir() {
 		this.inAir = false;
 		this.airSpeed = 0;
 	}
