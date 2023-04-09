@@ -2,10 +2,13 @@ package Entities;
 
 import java.awt.*;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import utilz.LoadImg;
 
 import maines.game;
 
 public class Slope extends Bloques{
+	BufferedImage Sprites[];
 	boolean isRightSlope = false, isLeftSlope = false, upside = false;
 	float slope = 0;
 	Point2D.Float Point1, Point2;
@@ -14,9 +17,18 @@ public class Slope extends Bloques{
 		super(x, y, height, width, id, collision);
 		createHitbox(x, y, width, height);
 		this.player = player;
+		initSprite();
 		checkType(id);
 		initPoint();
 		calculateSlope();
+	}
+
+	private void initSprite() {
+		BufferedImage slopesprite = LoadImg.GetResizedImage(LoadImg.SlopesSprite, 24*2, 24);
+		this.Sprites = new BufferedImage[2];
+		for (int i = 0; i < Sprites.length; i++) {
+			this.Sprites[i] = slopesprite.getSubimage(i*24, 0, 24, 24);
+		}
 	}
 
 	@Override
@@ -31,6 +43,14 @@ public class Slope extends Bloques{
 
 	@Override
 	public void draw(Graphics g){
+		if(isLeftSlope && !upside){		//type 84	GREY		ERROR UP
+			g.drawImage(this.Sprites[1], (int)this.Point1.x, (int)this.Point1.y, 24, 24, null);}
+		if(isRightSlope && !upside){	//type 168	GREEN		ERROR DOWN
+			g.drawImage(this.Sprites[0], (int)this.Point1.x, (int)this.Point2.y, 24, 24, null);}
+		if(isLeftSlope && upside){		//type 180	WEIRD COLOR
+			g.drawImage(this.Sprites[1], (int)this.Point1.x, (int)this.Point2.y+24, 24, -24, null);}
+		if(isRightSlope && upside){		//type 235	YELLOW
+			g.drawImage(this.Sprites[0], (int)this.Point1.x, (int)this.Point1.y+24, 24, -24, null);}
 		g.drawLine((int)this.Point1.x, (int)this.Point1.y, (int)this.Point2.x, (int)this.Point2.y);
 	}
 
@@ -60,9 +80,11 @@ public class Slope extends Bloques{
 
 	public void checkType(int id){
 		if(id == 84){/* 	Left	 */
+			this.upside = false;
 			this.isLeftSlope = true;
 		}
 		else if(id == 168){/* 	Right	 */
+			this.upside = false;
 			this.isRightSlope = true;
 		}
 		else if(id == 180){/* 	UpsideLeft	 */

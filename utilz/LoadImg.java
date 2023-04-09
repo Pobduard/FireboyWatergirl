@@ -1,7 +1,6 @@
 package utilz;
 
 import java.awt.*;
-import java.awt.Image;
 import java.awt.image.*;
 import java.io.*;
 import javax.imageio.ImageIO;
@@ -23,7 +22,17 @@ public class LoadImg {
 	public static final String MARIO_IDLE = "resources/MarioIdle.png"; 
 	public static final String MARIO_MOVE = "resources/MarioMove.png"; 
 	public static final String MARIO_JUMP = "resources/MarioJump.png"; 
-	public static final String MARIO_FALL = "resources/MarioFall.png"; 
+	public static final String MARIO_FALL = "resources/MarioFall.png";
+
+	public static final String Identify1 = "resources/Identif1.png";
+	public static final String Identify2 = "resources/Identif2.png";
+	
+	public static final String TilesSprite = "resources/Tiles.png";
+	public static final String BigTileSprite = "resources/BigTile.png";
+	public static final String SlopesSprite = "resources/Slopes.png";
+
+	public static final String Background1 = "resources/Fondo1.png";
+	public static final String Background2 = "resources/Fondo2.png";
 
 
 	public static BufferedImage GetImage(String path){
@@ -41,6 +50,12 @@ public class LoadImg {
 			}
 		}
 		return img;
+	}
+
+	public static BufferedImage ResizeImage(BufferedImage image, int width, int height){
+		Image scaled = image.getScaledInstance(width, height, Image.SCALE_FAST);
+		image = toBufferedImage(scaled);
+		return image;
 	}
 
 	public static BufferedImage GetResizedImage(String this_path, int width, int height){
