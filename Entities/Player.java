@@ -26,6 +26,7 @@ public class Player extends Entity {
     private int type;
     private float playerSpeed = 0.9f, jumpSpeed = -2.5f, gravity = 0.02f;
     private float fallSpeedAfterCollision = 0.5f, airSpeed = 0f;
+    public float xSpeed = 0f;
 
     /**Constructor<p>
      * Crear la {@code hitbox}
@@ -121,7 +122,7 @@ public class Player extends Entity {
 			{if((!left && !right) || left && right)
 				return;}}
 
-        float xSpeed = 0f;
+        this.xSpeed = 0f;
 
         if(this.right){
             xSpeed += playerSpeed;
@@ -139,6 +140,8 @@ public class Player extends Entity {
             if(HelpMethods.CanMoveHere(this.hitbox.x, this.hitbox.y + airSpeed, (int)this.hitbox.width, (int)this.hitbox.height, level.getLvlData())){
                 this.hitbox.y += this.airSpeed;
                 this.airSpeed += this.gravity;
+                //TODO: SECURITY
+                if(this.airSpeed >= 5f){this.airSpeed = 5f;}
                 updateXPos(xSpeed);
 
             } else
@@ -237,7 +240,6 @@ public class Player extends Entity {
      * @see #setPlayerType(int)
      * */
     public void IsLethal(){
-        //TODO: SOLUTION
 		int xLeft = (int)this.hitbox.x / game.Tile_Size;
 		int yUp = (int)this.hitbox.y / game.Tile_Size;
 		int xRight = (int)(this.hitbox.x + this.hitbox.width) / game.Tile_Size;

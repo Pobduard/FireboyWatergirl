@@ -17,17 +17,17 @@ public class HelpMethods {
 					if(!IsSolid(x + width, y, lvlData)){
 
 
-						if (height > game.Tile_Size && game.Tile_Size > width){
+						if (height >= game.Tile_Size && game.Tile_Size > width){
 							if(!IsMiddleYSolid(x, y, width, height, lvlData)){
 								return true;
 							}else {return false;}
 						
-						} else if(width > game.Tile_Size && game.Tile_Size > height){
+						} else if(width >= game.Tile_Size && game.Tile_Size > height){
 							if(!IsMiddleXSolid(x, y, width, height, lvlData)){
 								return true;
 							}else {return false;}
 						}
-						else if(height > game.Tile_Size && width > game.Tile_Size){
+						else if(height >= game.Tile_Size && width >= game.Tile_Size){
 							if(!IsMiddleYSolid(x, y, width, height, lvlData)){
 								if(!IsMiddleXSolid(x, y, width, height, lvlData)){
 									return true;

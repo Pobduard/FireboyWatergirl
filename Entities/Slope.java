@@ -99,15 +99,55 @@ public class Slope extends Bloques{
 	
 	public void leftPlayerCollision(){
 		if(this.player.hitbox.intersects(this.hitbox) && isInsideSlope()){
-			float FarPercentage = this.player.hitbox.x / game.Tile_Size;
-			this.player.hitbox.y = FarPercentage * game.Tile_Size;
+			System.out.println("LeftPlayerCondition");
+			if(isLeftSlope && !upside){
+				if(this.player.xSpeed > 0){//DownWards
+					int pixelsUp = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y -=	pixelsUp-1;
+				}
+				else if(this.player.xSpeed < 0){//Upwards
+					int pixelsUp = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y +=	pixelsUp;
+				}
+			}
+			if(isLeftSlope && upside){
+				if(this.player.xSpeed > 0){//UpWards
+					int pixelsDown = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y +=	pixelsDown-1;
+				}
+				else if(this.player.xSpeed < 0){//Downwards
+					int pixelsDown = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y -=	pixelsDown;
+				}
+			}
+
+
 		}
 	}
 	// TODO:
 	public void rightPlayerCollision(){
 		if(this.player.hitbox.intersects(this.hitbox) && isInsideSlope()){
-			float FarPercentage = (this.player.hitbox.x+this.player.hitbox.width) /game.Tile_Size;
-			this.player.hitbox.y = FarPercentage * game.Tile_Size;
+			System.out.println("RightPlayerCondition");
+			if(isRightSlope && !upside){
+				if(this.player.xSpeed > 0){//Upwards
+					int pixelsUp = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y +=	pixelsUp-1;
+				}
+				else if(this.player.xSpeed < 0){//DownWards
+					int pixelsUp = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y -=	pixelsUp;
+				}
+			}
+			if(isRightSlope && upside){
+				if(this.player.xSpeed > 0){//DownWards
+					int pixelsDown = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y -=	pixelsDown-1;
+				}
+				else if(this.player.xSpeed < 0){//Upwards
+					int pixelsDown = (int)(this.player.hitbox.x - Point2.x);
+					this.player.hitbox.y +=	pixelsDown;
+				}
+			}
 		}
 	}
 
@@ -127,14 +167,17 @@ public class Slope extends Bloques{
 		}
 
 		if(YCondition == 0){System.out.println("YCondition is 0");}
+		System.out.println(YCondition);
 		return YCondition;
 	}
 
 	public boolean isInsideSlope(){
-		if((YCondition() >= (this.player.hitbox.y+this.player.hitbox.height)) && !this.upside){
+		if((YCondition() >= (this.player.hitbox.y+this.player.hitbox.height+1)) && !this.upside){
+			System.out.println("NotUpside Condition");
 			return true;}
 		
-		else if(!(YCondition() >= (this.player.hitbox.y+this.player.hitbox.height)) && this.upside){
+		else if((YCondition() >= (this.player.hitbox.y+this.player.hitbox.height)) && this.upside){
+				System.out.println("Upside Condition");
 			return true;}
 		else{return false;}
 	}

@@ -19,8 +19,6 @@ public class leveldata{
 	/** 
 	 * Actualiza los datos correspondientes al nivel */
 	public void update(){
-		// TODO: HERE
-		// updateObjData();
 		resetPlayerHitboxPos();
 	}
 
