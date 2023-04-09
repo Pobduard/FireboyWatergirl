@@ -22,6 +22,7 @@ public class KeyInputs implements KeyListener {
 				this.Mygame.getPlaying().KeyPressed(e);
 				break;
 			case MAINMENU:
+				this.Mygame.getMainMenu().KeyPressed(e);
 				break;
 			default:
 				break;
@@ -35,8 +36,7 @@ public class KeyInputs implements KeyListener {
 				this.Mygame.getPlaying().KeyReleased(e);
 				break;
 			case MAINMENU:
-				if(e.getKeyCode() == KeyEvent.VK_P){
-				GameStates.gamestate = GameStates.PLAYING;}
+				this.Mygame.getMainMenu().KeyReleased(e);
 				break;
 			default:
 				break;

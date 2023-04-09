@@ -41,7 +41,7 @@ public class Playing implements StateMethods{
 			case KeyEvent.VK_UP:
 				this.player.setcanJump(true);
 				break;
-			//+ Espacio
+			//+ ALIVE
 			case KeyEvent.VK_U:
 				this.player.setAlive(true);;
 				break;

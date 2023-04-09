@@ -17,13 +17,13 @@ public class levelmanager {
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
 	private Object currentObjData = null;
-	private final int playerWidth = game.Tile_Size+8, playerHeight = game.Tile_Size+12;
+	private final int playerWidth = game.Tile_Size+8, playerHeight = game.Tile_Size+16;
 
 	/** Constructor para la clase {@link #levelmanager(game)} */
 	public levelmanager(){
-		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, playerWidth, playerHeight, null, 1);
+		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, playerWidth, playerHeight, null, 0);
 		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), setObjData(LoadImg.LEVEL_ONE_PIXIL));
-		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXELS), setObjData(LoadImg.LEVEL_ONE_PIXELS));
+		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_TWO_PIXELS), setObjData(LoadImg.LEVEL_TWO_PIXELS));
 		lvlTre = new leveldata(setLvlData(LoadImg.LEVEL_TRE), setObjData(LoadImg.LEVEL_TRE));
 
 		this.currentObjData = lvlOne.getObjData();
