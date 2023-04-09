@@ -10,6 +10,7 @@ public class game {
 	private MyFrame frame;
 	private MyPanel panel;
 	private Playing playing;
+	private MainMenu mainMenu;
 
 	private TimerTask taskUpdate, taskDraw;
 	private final int FPS = 120, UPS = 200;
@@ -22,10 +23,10 @@ public class game {
 	/** 
 	 * Constructor para la clase {@link #game()}  */
 	public game(){
-	initClasses();
+	initPlaying();
 	panel = new MyPanel(this);
+	initMainMenu(panel);
 	frame = new MyFrame(panel, "Jaiber Arellano's & Williangel Quevedo's - Fireboy and Watergirl");
-
 	frame.add(panel);
 
 	frame.setVisible(true);
@@ -38,8 +39,12 @@ public class game {
 	panel.requestFocusInWindow();
 	}
 
-	private void initClasses(){
+	private void initPlaying(){
 		playing = new Playing();
+	}
+
+	private void initMainMenu(MyPanel panel){
+		mainMenu = new MainMenu(this.panel);
 	}
 
 	/**
@@ -91,4 +96,7 @@ public class game {
 		return this.playing;
 	}
 
+	public MainMenu getMainMenu() {
+		return mainMenu;
+	}
 }

@@ -15,7 +15,29 @@ public class HelpMethods {
 			if(!IsSolid(x + width, y + height, lvlData)){
 				if(!IsSolid(x, y, lvlData)){
 					if(!IsSolid(x + width, y, lvlData)){
-										return true;
+
+
+						if (height > game.Tile_Size && game.Tile_Size > width){
+							if(!IsMiddleYSolid(x, y, width, height, lvlData)){
+								return true;
+							}else {return false;}
+						
+						} else if(width > game.Tile_Size && game.Tile_Size > height){
+							if(!IsMiddleXSolid(x, y, width, height, lvlData)){
+								return true;
+							}else {return false;}
+						}
+						else if(height > game.Tile_Size && width > game.Tile_Size){
+							if(!IsMiddleYSolid(x, y, width, height, lvlData)){
+								if(!IsMiddleXSolid(x, y, width, height, lvlData)){
+									return true;
+								}else {return false;}
+							}else {return false;}
+						}
+
+
+						return true;
+
 					}else {return false;}
 				}else {return false;}
 			}else {return false;}
@@ -51,24 +73,45 @@ public class HelpMethods {
 	}
 
 	/**@return {@code false} solo si el tipo de "bloque" donde se encuentran {@code (x,y)} dentro del 
-	 * nivel {@code lvlData[x][y]} es considerado como "no Solido" */
-	public static boolean IsMiddleSolid(float x, float y, int width, int height, int[][] lvlData){
-		int xTile = (int)(x / game.Tile_Size);
-		int yTile = (int)(y / game.Tile_Size);
+	 * nivel {@code lvlData[x][y]} y {@code lvlData[x][y+1]} son considerados como "no Solido" */
+	public static boolean IsMiddleYSolid(float x, float y, int width, int height, int[][] lvlData){
+		int xInsideTile = (int)x / game.Tile_Size;
+		int yInsideTile = (int)y / game.Tile_Size;
 
-		//-1 por recordar que el Array Empieza en 0, tons llega hasta 39
-		if(xTile > game.Game_Tiles_In_Width-1){
-			xTile = game.Game_Tiles_In_Width-1;}
+		int UpTile = lvlData[xInsideTile][yInsideTile];
+		int DownTile = lvlData[xInsideTile][yInsideTile+1];
+		switch (UpTile) {
+			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+			switch (DownTile) {
+				case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+					return false;
+				default:
+					return true;
+			}
+			default:
+				return true;
+		}
+	}
 
-		//-1 por recordar que el Array Empieza en 0, tons llega hasta 29
-		if(yTile > game.Game_Tiles_In_Height-1){
-			yTile = game.Game_Tiles_In_Height-1;}
+	/**@return {@code false} solo si el tipo de "bloque" donde se encuentran {@code (x,y)} dentro del 
+	 * nivel {@code lvlData[x][y]} y {@code lvlData[x+1][y]} son considerados como "no Solido" */
+	public static boolean IsMiddleXSolid(float x, float y, int width, int height, int[][] lvlData){
+		int xInsideTile = (int)x / game.Tile_Size;
+		int yInsideTile = (int)y / game.Tile_Size;
 
-		if((x > xTile && xTile > x+width) || (x > (xTile+game.Tile_Size) && (xTile+game.Tile_Size) > x+width)){
-			if((y > yTile && yTile > y+height) || (y > (yTile+game.Tile_Size) && (yTile+game.Tile_Size) > y+height)){
-				return false;
-			} else {return true;}
-		} else {return true;}
+		int LeftTile = lvlData[xInsideTile][yInsideTile];
+		int RightTile = lvlData[xInsideTile+1][yInsideTile];
+		switch (LeftTile) {
+			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+			switch (RightTile) {
+				case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+					return false;
+				default:
+					return true;
+			}
+			default:
+				return true;
+		}
 	}
 
 	public static boolean IsEntityOnFloor(Rectangle2D.Float hitbox, int[][] lvlData) {
@@ -122,5 +165,4 @@ public class HelpMethods {
 			return tileYPos;
 			}
 	}
-
 }

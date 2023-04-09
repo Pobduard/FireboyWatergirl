@@ -98,13 +98,14 @@ public class Player extends Entity {
         if(GameStates.gamestate == GameStates.PLAYING){
             // g.setColor(Color.BLACK);
             // g.fillRect((int)this.hitbox.x, (int)this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height);
-            if(this.left && playerAction == RUNNING){
-                g.drawImage(this.Sprites[playerAction][aniIndex], (int)(this.hitbox.x+this.hitbox.width), (int)this.hitbox.y, -(int)this.hitbox.width, (int)this.hitbox.height,null);
+            if(this.isAlive())
+                {if(this.left && playerAction == RUNNING){
+                    g.drawImage(this.Sprites[playerAction][aniIndex], (int)(this.hitbox.x+this.hitbox.width), (int)this.hitbox.y, -(int)this.hitbox.width, (int)this.hitbox.height,null);
+                }else{
+                    g.drawImage(this.Sprites[playerAction][aniIndex], (int)this.hitbox.x, (int)this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height, null);
+                }
+                drawHitbox(g);
             }
-            else{
-                g.drawImage(this.Sprites[playerAction][aniIndex], (int)this.hitbox.x, (int)this.hitbox.y, (int)this.hitbox.width, (int)this.hitbox.height, null);
-            }
-            drawHitbox(g);
         }
     }
 
@@ -236,27 +237,43 @@ public class Player extends Entity {
      * @see #setPlayerType(int)
      * */
     public void IsLethal(){
-		int xInsideTile = (int)this.hitbox.x / game.Tile_Size;
-		int yInsideTile = (int)this.hitbox.y / game.Tile_Size;
+        //TODO: SOLUTION
+		int xLeft = (int)this.hitbox.x / game.Tile_Size;
+		int yUp = (int)this.hitbox.y / game.Tile_Size;
+		int xRight = (int)(this.hitbox.x + this.hitbox.width) / game.Tile_Size;
+		int yDown = (int)(this.hitbox.y + this.hitbox.height) / game.Tile_Size;
         int levelData[][] = level.getLvlData();
 
         //-1 por recordar que el Array Empieza en 0, tons llega hasta 39
-		if(xInsideTile > game.Game_Tiles_In_Width-1){
-			xInsideTile = game.Game_Tiles_In_Width-1;}
+		if(xLeft > game.Game_Tiles_In_Width-1){
+			xLeft = game.Game_Tiles_In_Width-1;}
 
 		//-1 por recordar que el Array Empieza en 0, tons llega hasta 29
-		if(yInsideTile > game.Game_Tiles_In_Height-1){
-			yInsideTile = game.Game_Tiles_In_Height-1;}
+		if(yUp > game.Game_Tiles_In_Height-1){
+			yUp = game.Game_Tiles_In_Height-1;}
 
-		int currentTile = levelData[xInsideTile][yInsideTile];
+        //-1 por recordar que el Array Empieza en 0, tons llega hasta 39
+		if(xRight > game.Game_Tiles_In_Width-1){
+			xRight = game.Game_Tiles_In_Width-1;}
+
+		//-1 por recordar que el Array Empieza en 0, tons llega hasta 29
+		if(yDown > game.Game_Tiles_In_Height-1){
+			yDown = game.Game_Tiles_In_Height-1;}
+
+		int LeftUp = levelData[xLeft][yUp];
+		int RightDown = levelData[xRight][yDown];
+		int LeftDown = levelData[xLeft][yDown];
+		int RightUp = levelData[xRight][yUp];
 
 		//34 = Toxico, 153 = Agua, 237 = Lava 
-		if(currentTile == 34){this.Alive = false;}                  //Para Ambos
-        if(playerType() == 0 && currentTile == 153){this.Alive = false;}    //Para FireBoy
-        if(playerType() == 1 && currentTile == 237){this.Alive = false;}    //Para Watergirl
+        if(LeftUp == 34 || RightDown == 34 || LeftDown == 34 || RightUp == 34){this.Alive = false;}                  //Para Ambos
 
-        if(this.hitbox.x < 0 || this.hitbox.x > game.Game_Width){this.Alive = false;}
-		if(this.hitbox.y < 0 || this.hitbox.y > game.Game_Height){this.Alive = false;}
+        if(playerType() == 0 && (LeftUp == 153 || RightDown == 153 || LeftDown == 153 || RightUp == 153)){
+            this.Alive = false;}    //Para FireBoy
+        if(playerType() == 1 && (LeftUp == 237 || RightDown == 237 || LeftDown == 237 || RightUp == 237)){this.Alive = false;}    //Para Watergirl
+
+        if(this.hitbox.x < 0 || (this.hitbox.x + this.hitbox.width) > game.Game_Width){this.Alive = false;}
+		if(this.hitbox.y < 0 || (this.hitbox.y + this.hitbox.height) > game.Game_Height){this.Alive = false;}
 	}
     
     /** 
