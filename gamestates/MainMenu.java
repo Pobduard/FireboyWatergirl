@@ -120,7 +120,10 @@ public class MainMenu implements ActionListener{
 				GameStates.gamestate = GameStates.PLAYING;
 				break;
 			case KeyEvent.VK_UP:
-				this.Index--;
+				if(this.Index == 0){
+					this.Index = 2;
+				}else {this.Index--;}
+				
 				break;
 			case KeyEvent.VK_DOWN:
 				this.Index++;
