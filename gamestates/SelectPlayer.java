@@ -3,45 +3,57 @@ package gamestates;
 import javax.swing.*;
 
 import utilz.LoadImg;
+import maines.*;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.image.*;
+import java.awt.event.*;
 
 public class SelectPlayer {
-	JTextField nombreJugador;
-    private JButton botonMario = new JButton();
-    private JButton botonLuigi = new JButton();
+	private JTextField nombreJugador;
+    private Rectangle botonMario, botonLuigi;
+    private boolean intoMario, intoLuigi;
     public String nombre;
 	public int type;
 
-    public SelectPlayer() {
-        initBotones();
-        initTextField();
-        verficarBotones();
+
+    private BufferedImage background, Mario, Luigi;
+    MyPanel panel;
+
+    public SelectPlayer(MyPanel panel) {
+        this.panel = panel;
+        this.background = LoadImg.GetResizedImage(LoadImg.LvlWon, game.Game_Width, game.Game_Height);
+        this.Mario = LoadImg.GetResizedImage(LoadImg.MarioSelect, 240, 360);
+        this.Luigi = LoadImg.GetResizedImage(LoadImg.LuigiSelect, 240, 360);
+        botonMario = new Rectangle(100, 400, 240, 360);
+        botonLuigi = new Rectangle(400, 400, 240, 360);
     }
 
-	public void update(){
+	public void update() {
 		if(GameStates.gamestate == GameStates.PLAYERSELECTOR){
-			nombreJugador.setEnabled(true);
-			nombreJugador.setVisible(true);
-			botonMario.setEnabled(true);
-			botonMario.setVisible(true);
-			botonLuigi.setEnabled(true);
-			botonLuigi.setVisible(true);
+			if(intoMario){this.type = 0;
+            this.intoMario = false;
+            GameStates.gamestate = GameStates.LVLSELECTOR;}
+			if(intoLuigi){this.type = 1;
+                this.intoLuigi = false;
+                GameStates.gamestate = GameStates.LVLSELECTOR;}
+	    }
+    }
+
+	public void draw(Graphics g) {
+		if(GameStates.gamestate == GameStates.PLAYERSELECTOR){
+			g.drawImage(background, 0, 0, game.Game_Width, game.Game_Height, null);
+			g.setFont(new Font("Comic Sans", Font.BOLD, 25));
+
+            g.drawImage(Mario, 100, 400, 240, 360, null);
+
+            g.drawImage(Luigi, 400, 400, 240, 360, null);
 		}
 	}
 
-	public void draw(Graphics g){}
-
 	public void isActive(){
 		if(GameStates.gamestate != GameStates.PLAYERSELECTOR){
-			nombreJugador.setEnabled(false);
-			nombreJugador.setVisible(false);
-			botonMario.setEnabled(false);
-			botonMario.setVisible(false);
-			botonLuigi.setEnabled(false);
-			botonLuigi.setVisible(false);
+            update();
 		}
 	}
 
@@ -53,36 +65,22 @@ public class SelectPlayer {
                 nombre = nombreJugador.getText();
             }
         });
-        if (nombre.length()>8){
-            nombre = nombre.substring(0, 8);
-        }
     }
 
-    public void initBotones(){
-        botonMario = new JButton();
-        botonLuigi = new JButton();
-        botonMario.setBounds(100,300,240,360);
-        botonLuigi.setBounds(400,300,240,360);
-        ImageIcon imagenMario = new ImageIcon(LoadImg.MarioSelect);
-        ImageIcon imagenLuigi = new ImageIcon(LoadImg.LuigiSelect);
-        botonMario.setIcon(new ImageIcon(imagenMario.getImage().getScaledInstance(botonMario.getWidth(),botonMario.getHeight(),Image.SCALE_FAST)));
-        botonLuigi.setIcon(new ImageIcon(imagenLuigi.getImage().getScaledInstance(botonMario.getWidth(),botonMario.getHeight(),Image.SCALE_FAST)));
+    public int getType() {
+        return type;
+    }
 
-    }
-    private void verficarBotones() {
-        botonMario.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                type = 0;
-				GameStates.gamestate = GameStates.LVLSELECTOR;
-            }
-        });
-        botonLuigi.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                type = 1;
-				GameStates.gamestate = GameStates.LVLSELECTOR;
-            }
-        });
-    }
+    public void MouseClicked(MouseEvent e) {
+		if(IsIn(e, botonMario)){
+			this.intoMario = true;
+		} else {}
+		if(IsIn(e, botonLuigi)){
+			this.intoLuigi = true;
+		}
+	}
+
+	public boolean IsIn(MouseEvent e, Rectangle pn){
+		return pn.contains(e.getX(), e.getY());
+	}
 }

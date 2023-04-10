@@ -11,6 +11,7 @@ import gamestates.*;
  * Clase principal en la que se mostrara todo el juego  */
 public class MyPanel extends JPanel{
 	game Mygame;
+
 	public KeyInputs key;
 	public MouseInputs mouse;
 	public JButton playButton, quitButton;
@@ -30,6 +31,7 @@ public class MyPanel extends JPanel{
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
 		initLvlWon();
+		initSelectPlayer();
     }
     
 	/**Este metodo es el encargado de actualizar el programa
@@ -107,8 +109,12 @@ public class MyPanel extends JPanel{
 		lvlWon = new LvlWon();
 	}
 
-	private void SelectPlayer(){
-		playerSelector = new SelectPlayer();
+	public SelectPlayer getSelectPlayer(){
+		return this.playerSelector;
+	}
+
+	private void initSelectPlayer(){
+		playerSelector = new SelectPlayer(this);
 	}
 
 	/**
@@ -118,4 +124,9 @@ public class MyPanel extends JPanel{
 	public LvlWon getLvlWon() {
 		return lvlWon;
 	}
+
+	public game getMygame() {
+		return Mygame;
+	}
+
 }

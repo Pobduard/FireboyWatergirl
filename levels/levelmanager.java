@@ -24,13 +24,27 @@ public class levelmanager {
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
 	private Object currentObjData = null;
-	private final int playerWidth = game.Tile_Size+8, playerHeight = game.Tile_Size+16;
+	private int playerWidth = game.Tile_Size+8, playerHeight = game.Tile_Size+16;
+	public int type = 1;
 
 	/** Constructor para la clase {@link #levelmanager} */
+	
+	/**
+	 * The levelmanager function is responsible for loading the level data and object data from the
+	 * image files. It also initializes all of the sprites that are used in-game.
+	 
+	 *
+	 * @param Playing playing Access the playing class
+		public void initsprites(){
+			for(int i = 0; i &lt; sprites
+	 *
+	 * @return The currentobjdata
+	 *
+	 */
 	public levelmanager(Playing playing){
 		this.playing = playing;
 		initSprites();
-		this.player = new Player((game.Tile_Size*2), (game.Game_Height-(game.Tile_Size*3+2)), playerWidth, playerHeight, null, 1);
+		this.player = new Player((game.Tile_Size*2), (game.Game_Height-(game.Tile_Size*3+2)), playerWidth, playerHeight, null, type);
 		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), setObjData(LoadImg.LEVEL_ONE_PIXIL));
 		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_TWO_PIXELS), setObjData(LoadImg.LEVEL_TWO_PIXELS));
 		lvlTre = new leveldata(setLvlData(LoadImg.LEVEL_TRE), setObjData(LoadImg.LEVEL_TRE));
@@ -38,6 +52,17 @@ public class levelmanager {
 		this.currentObjData = lvlOne.getObjData();
 	}
 
+	
+	/**
+	 * The isLvlWon function checks if the player has won the level.
+	 * If so, it sets the gamestate to LVLWON and stops all movement of the player.
+	 
+	 *
+	 *
+	 * @return A boolean value to the gamestates class
+	 *
+	 * @docauthor Trelent
+	 */
 	public void isLvlWon(){
 		if(LevelStates.levelstate == LevelStates.LVL1){
 			if(lvlOne.isWin){GameStates.gamestate = GameStates.LVLWON;
@@ -97,6 +122,28 @@ public class levelmanager {
 		return lvlData;
 	}
 
+	
+	/**
+	 * The initialiceObj function is used to create a new object of the type Bloques, which is an abstract class.
+	 * The function takes in 5 parameters: x and y coordinates, an id number (which corresponds to the tile's image), 
+	 * and two integers i and j that are used for indexing purposes. The function returns a new object of type Bloques.
+	 
+	 *
+	 * @param float x Set the x position of the object
+		private void initialiceobj(float x, float y, int id){
+			if(id == 84){new slope(x, y, game
+	 * @param float y Set the y position of the object
+	 * @param int id Know what kind of object we are going to create
+	 * @param int i Know the position of the object in the array
+	private void addobj(int i, int j){
+			if(bloques[i][j] != null){
+			game
+	 * @param int j Know the position of the object in the array
+	 *
+	 * @return A new object of the type that is passed by parameter
+	 *
+	 * @docauthor Trelent
+	 */
 	private Bloques initialiceObj(float x, float y, int id, int i, int j){
 		if(id == 84){return new Slope(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());} 
 		else if(id == 168){return new Slope(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());} 
@@ -304,6 +351,17 @@ public class levelmanager {
 		}
 	}
 
+	
+	/**
+	 * The initSprites function is used to initialize the sprites for the game.
+	 * It takes in no parameters and returns nothing.
+	 
+	 *
+	 *
+	 * @return Nothing
+	 *
+	 * @docauthor Trelent
+	 */
 	public void initSprites(){
 		this.background = LoadImg.GetResizedImage(LoadImg.Background1, game.Game_Width, game.Game_Height);
 		this.spikes = LoadImg.GetResizedImage(LoadImg.SpikesSprites, game.Tile_Size, game.Tile_Size);
@@ -314,11 +372,23 @@ public class levelmanager {
 		BufferedImage liquids = LoadImg.GetResizedImage(LoadImg.LiquidSprites, game.Tile_Size*15, game.Tile_Size*9);
 		for (int i = 0; i < liquid.length; i++) {
 			for (int j = 0; j < liquid[i].length; j++) {
-				this.liquid[i][j] = liquids.getSubimage(i*game.Tile_Size, j, game.Tile_Size, game.Tile_Size);
+				this.liquid[i][j] = liquids.getSubimage(j*game.Tile_Size, i, game.Tile_Size, game.Tile_Size);
 			}
 		}
 	}
 
+	
+	/**
+	 * The setPlayers function is used to set the player for each level.
+	 * This function is called in the constructor of this class, and it's purpose
+	 * is to make sure that each level has a reference to the same player object. 
+	 
+	 *
+	 *
+	 * @return Nothing
+	 *
+	 * @docauthor Trelent
+	 */
 	public void setPlayers(){
 		lvlOne.setPlayer(this.player);
 		lvlTwo.setPlayer(this.player);
@@ -331,6 +401,21 @@ public class levelmanager {
 		return this.player;
 	}
 
+	
+	/**
+	 * The ObjDataActive function is used to determine whether or not the current object data
+	 * is equal to the new object data. This function returns a boolean value of true if they are
+	 * equal, and false if they are not. The ObjDataActive function takes no parameters, but it does 
+	 * use several global variables in order to accomplish its task: ndObjData (new Object Data), 
+	 * currentObjData (current Object Data), GameStates.gamestate (the game state) and LevelStates.levelstate 
+	 * (the level state). The ObjDataActive function uses an if statement that checks what the game
+	 *
+	 *
+	 * @return True if the current object data is equal to the new object data
+	 *
+	 * @docauthor Trelent
+
+	 */
 	public boolean ObjDataActive(){
 		Object ndObjData = null;
 		if(GameStates.gamestate == GameStates.PLAYING){		
@@ -345,12 +430,34 @@ public class levelmanager {
 		else{return false;}
 	}
 
+	
+	/**
+	 * The refresObjData function is a function that refreshes the object data of the current level.
+	 * It does this by first checking if there is an active object data, and if not, it gets the current one.
+	 * Then it updates all of its values to match those in the game state's array list of objects.
+	 
+	 *
+	 *
+	 * @return The current object data
+	 *
+	 * @docauthor Trelent
+	 */
 	public void refresObjData(){
 		if(!ObjDataActive()){
 			this.objData = getCurrentObjData();}
 		updateObjData();
 	}
 
+	
+	/**
+	 * The getCurrentObjData function returns the current level's object data.
+	 * 
+	 *
+	 *
+	 * @return The current level's object data
+	 *
+	 * @docauthor Trelent
+	 */
 	private Bloques[][] getCurrentObjData(){
 		Bloques[][] returnObj = null;
 		switch (LevelStates.levelstate) {
@@ -370,6 +477,17 @@ public class levelmanager {
 		return returnObj;
 	}
 
+	
+	/**
+	 * The updateObjData function updates the object data in the level.
+	 * It does this by iterating through each element of objData and updating it if it is not null.
+	 
+	 *
+	 *
+	 * @return Nothing
+	 *
+	 * @docauthor Trelent
+	 */
 	private void updateObjData(){
 		for (int i = 0; i < this.objData.length; i++) {
 			for (int j = 0; j < this.objData[i].length; j++) {
@@ -377,5 +495,21 @@ public class levelmanager {
 					this.objData[i][j].update();}
 			}
 		}
+	}
+
+
+	
+	/**
+	 * The settype function sets the type of the tile.
+	 * 
+	 *
+	 * @param int type Set the type of the card
+	 *
+	 * @return Nothing
+	 *
+	 * @docauthor Trelent
+	 */
+	public void settype(int type){
+		this.type = type;
 	}
 }
