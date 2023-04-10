@@ -33,7 +33,7 @@ public class Bloques extends Entity{
      *
      * @return A boolean value
      *
-     * @docauthor Trelent
+     * 
      */
     public void update(){}
     public void draw(Graphics g){}
