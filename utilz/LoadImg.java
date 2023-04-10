@@ -35,11 +35,13 @@ public class LoadImg {
 	public static final String PilarSprites = "resources/Pilar16x16.png";
 	public static final String PlataformaSprites = "resources/Platform16x16.png";
 	public static final String SpikesSprites = "resources/Spikes16x16.png";
+	public static final String DoorsSprites = "resources/Doors114x120.png";
 
 	public static final String Background1 = "resources/Fondo1.png";
 	public static final String Background2 = "resources/Fondo2.png";
 	public static final String PlayerSelector = "resources/playerSelector.png";
 	public static final String MainMenu = "resources/MainMenu2.png";
+	public static final String LvlWon = "resources/LvlWon.png";
 
 
 	/**

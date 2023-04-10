@@ -102,9 +102,10 @@ public class game {
 
 	/**
 	 *
-	 * @return {@code Playing} de la clase (para manejar Inputs), actualizar y dibujar
+	 * @return {@code MainMenu} de la clase (para manejar Inputs), actualizar y dibujar
 	 */
 	public MainMenu getMainMenu() {
 		return mainMenu;
 	}
+
 }

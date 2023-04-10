@@ -22,6 +22,9 @@ public class MouseInputs implements MouseListener, MouseMotionListener{
 		switch (GameStates.gamestate) {
 			case MAINMENU:
 				break;
+			case LVLWON:
+			this.Mygame.getPanel().getLvlWon().MouseClicked(e);
+				break;
 			case LVLSELECTOR:
 				break;
 			case PAUSE:
@@ -54,6 +57,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener{
 		switch (GameStates.gamestate) {
 			case MAINMENU:
 				this.Mygame.getMainMenu().MouseEntered(e);
+				break;
+			case LVLWON:
 				break;
 			case LVLSELECTOR:
 				break;
@@ -92,6 +97,8 @@ public class MouseInputs implements MouseListener, MouseMotionListener{
 		switch (GameStates.gamestate) {
 			case MAINMENU:
 				this.Mygame.getMainMenu().mouseMoved(e);
+				break;
+			case LVLWON:
 				break;
 			case LVLSELECTOR:
 				break;

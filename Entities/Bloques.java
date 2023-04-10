@@ -6,8 +6,9 @@ import java.awt.*;
  * Clase Bloques
  */
 public class Bloques extends Entity{
-    protected int id;
-    protected boolean collision = true;
+    public int id;
+    public float index;
+    public boolean collision = true, isWin = false;
 
     /**
      * @param x
