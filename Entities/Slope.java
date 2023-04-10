@@ -119,7 +119,7 @@ public class Slope extends Bloques{
 				if(0 < this.player.xSpeed){//UpWards	"Only Collision"
 					int pixelsDown = (int)(this.player.hitbox.x - Point2.x);
 					System.out.println("Pixels" + pixelsDown);
-					this.player.hitbox.y -=	pixelsDown;		//No Lo "Lo Deja" Pasar, es como que colisiona
+					this.player.hitbox.y -=	pixelsDown;		//No. Lo "Lo Deja" Pasar, es como que colisiona
 				}
 			}
 
