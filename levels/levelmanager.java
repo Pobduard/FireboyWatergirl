@@ -9,15 +9,17 @@ import java.awt.image.*;
 import Entities.*;
 import gamestates.GameStates;
 import gamestates.LevelStates;
+import gamestates.Playing;
 
 /** 
  * Clase Principal para manejar todos los datos correspondientes a un nivel */
 public class levelmanager {
-	BufferedImage tile[] = new BufferedImage[4];
-	BufferedImage liquid[][] = new BufferedImage[9][15];
-	BufferedImage item[] = new BufferedImage[2];
-	BufferedImage background, spikes;
-	LevelStates currentstate = LevelStates.LVL1;
+	private Playing playing;
+	private BufferedImage tile[] = new BufferedImage[4];
+	private BufferedImage liquid[][] = new BufferedImage[9][15];
+	private BufferedImage item[] = new BufferedImage[2];
+	private BufferedImage background, spikes;
+	private LevelStates currentstate = LevelStates.LVL1;
 	private Bloques objData[][];
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
@@ -25,7 +27,8 @@ public class levelmanager {
 	private final int playerWidth = game.Tile_Size+8, playerHeight = game.Tile_Size+16;
 
 	/** Constructor para la clase {@link #levelmanager} */
-	public levelmanager(){
+	public levelmanager(Playing playing){
+		this.playing = playing;
 		initSprites();
 		this.player = new Player((game.Tile_Size*2), (game.Game_Height-(game.Tile_Size*3+2)), playerWidth, playerHeight, null, 1);
 		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), setObjData(LoadImg.LEVEL_ONE_PIXIL));
@@ -251,6 +254,7 @@ public class levelmanager {
 				isLvlWon();}
 		if(Verify != currentstate){
 			player.resetHitboxPos();
+			playing.getCron().resetTimer();
 		}
 		}
 	}
