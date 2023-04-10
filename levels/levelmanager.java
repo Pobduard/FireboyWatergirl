@@ -14,8 +14,10 @@ import gamestates.LevelStates;
  * Clase Principal para manejar todos los datos correspondientes a un nivel */
 public class levelmanager {
 	BufferedImage tile[] = new BufferedImage[4];
+	BufferedImage liquid[][] = new BufferedImage[9][15];
 	BufferedImage item[] = new BufferedImage[2];
 	BufferedImage background, spikes;
+	LevelStates currentstate = LevelStates.LVL1;
 	private Bloques objData[][];
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
@@ -25,12 +27,30 @@ public class levelmanager {
 	/** Constructor para la clase {@link #levelmanager} */
 	public levelmanager(){
 		initSprites();
-		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, playerWidth, playerHeight, null, 0);
+		this.player = new Player((game.Tile_Size*2), (game.Game_Height-(game.Tile_Size*3+2)), playerWidth, playerHeight, null, 1);
 		lvlOne = new leveldata(setLvlData(LoadImg.LEVEL_ONE_PIXIL), setObjData(LoadImg.LEVEL_ONE_PIXIL));
 		lvlTwo = new leveldata(setLvlData(LoadImg.LEVEL_TWO_PIXELS), setObjData(LoadImg.LEVEL_TWO_PIXELS));
 		lvlTre = new leveldata(setLvlData(LoadImg.LEVEL_TRE), setObjData(LoadImg.LEVEL_TRE));
 
 		this.currentObjData = lvlOne.getObjData();
+	}
+
+	public void isLvlWon(){
+		if(LevelStates.levelstate == LevelStates.LVL1){
+			if(lvlOne.isWin){GameStates.gamestate = GameStates.LVLWON;
+				this.player.xSpeed = 0;
+				lvlOne.isWin = false;}
+		}
+		if(LevelStates.levelstate == LevelStates.LVL2){
+			if(lvlTwo.isWin){GameStates.gamestate = GameStates.LVLWON;
+				this.player.xSpeed = 0;
+				lvlTwo.isWin = false;}
+		}
+		if(LevelStates.levelstate == LevelStates.LVL3){
+			if(lvlTre.isWin){GameStates.gamestate = GameStates.LVLWON;
+				this.player.xSpeed = 0;
+				lvlTre.isWin = false;}
+		}
 	}
 
 	/** 
@@ -81,6 +101,8 @@ public class levelmanager {
 		else if(id == 235){return new Slope(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());}
 		else if(id == 5){return new Item(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());}
 		else if(id == 220){return new Item(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());}
+		else if(id == 20){return new Door(x, y, game.Tile_Size*2, game.Tile_Size*2, id, false, getPlayer());}
+		else if(id == 210){return new Door(x, y, game.Tile_Size*2, game.Tile_Size*2, id, false, getPlayer());}
 		else {return null;}
 		
 		// switch (id) {
@@ -163,6 +185,12 @@ public class levelmanager {
 			case 50:	//& Boton
 				returnColor = new Color(156,90,60);
 				break;
+			case 20:	//& Puerta Luigi
+				returnColor = new Color(20,0,0);
+				break;
+			case 210:	//& Puerta Mario
+				returnColor = new Color(210,0,0);
+				break;
 			case 150:	//& PiedraMovible
 				returnColor = Color.darkGray;
 				break;
@@ -185,25 +213,45 @@ public class levelmanager {
 	 * @see gamestates.LevelStates*/
 	public void update(){
 		if(GameStates.gamestate == GameStates.PLAYING){		
+		LevelStates Verify = currentstate;
 			setPlayers();
 			if(LevelStates.levelstate == LevelStates.LVL1){
-				player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*2+2);
+				currentstate = LevelStates.LVL1;
+				if(player.type == 0){
+					player.changeXYPos((game.Tile_Size*2), (game.Game_Height-(game.Tile_Size*3+2)));
+				}
+				if(player.type == 1){
+					player.changeXYPos((game.Tile_Size*2), (game.Game_Height-(game.Tile_Size*7+2)));
+				}
 				player.setlvl(lvlOne);
 				player.update();
 				refresObjData();
-				lvlOne.update();}
+				lvlOne.update();
+				isLvlWon();}
 			if(LevelStates.levelstate == LevelStates.LVL2){
-				player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6);
+				currentstate = LevelStates.LVL2;
+				if(player.type == 0){
+					player.changeXYPos((game.Tile_Size*2), (game.Game_Height-(game.Tile_Size*3)));
+				}
+				if(player.type == 1){
+					player.changeXYPos((game.Tile_Size*4), (game.Game_Height-(game.Tile_Size*3)));
+				}
 				player.setlvl(lvlTwo);
 				player.update();
 				refresObjData();
-				lvlTwo.update();}
+				lvlTwo.update();
+				isLvlWon();}
 			if(LevelStates.levelstate == LevelStates.LVL3){
-				player.changeXYPos(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6);
+				currentstate = LevelStates.LVL3;
+				player.changeXYPos(3, (game.Game_Height-(game.Tile_Size*2)));
 				player.setlvl(lvlTre);
 				player.update();
 				refresObjData();
-				lvlTre.update();}
+				lvlTre.update();
+				isLvlWon();}
+		if(Verify != currentstate){
+			player.resetHitboxPos();
+		}
 		}
 	}
 
@@ -253,6 +301,12 @@ public class levelmanager {
 		BufferedImage tiles = LoadImg.GetResizedImage(LoadImg.TilesSprite, game.Tile_Size*4, game.Tile_Size);
 		for (int i = 0; i < tile.length; i++) {
 			this.tile[i] = tiles.getSubimage(i*game.Tile_Size, 0, game.Tile_Size, game.Tile_Size);
+		}
+		BufferedImage liquids = LoadImg.GetResizedImage(LoadImg.LiquidSprites, game.Tile_Size*15, game.Tile_Size*9);
+		for (int i = 0; i < liquid.length; i++) {
+			for (int j = 0; j < liquid[i].length; j++) {
+				this.liquid[i][j] = liquids.getSubimage(i*game.Tile_Size, j, game.Tile_Size, game.Tile_Size);
+			}
 		}
 	}
 

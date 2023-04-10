@@ -65,7 +65,7 @@ public class HelpMethods {
 
 		int currentTile = lvlData[xInsideTile][yInsideTile];
 		switch (currentTile) {
-			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235: case 20: case 210:
 				return false;
 			default:
 				return true;
@@ -81,9 +81,9 @@ public class HelpMethods {
 		int UpTile = lvlData[xInsideTile][yInsideTile];
 		int DownTile = lvlData[xInsideTile][yInsideTile+1];
 		switch (UpTile) {
-			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235: case 20: case 210:
 			switch (DownTile) {
-				case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+				case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235: case 20: case 210:
 					return false;
 				default:
 					return true;
@@ -102,9 +102,9 @@ public class HelpMethods {
 		int LeftTile = lvlData[xInsideTile][yInsideTile];
 		int RightTile = lvlData[xInsideTile+1][yInsideTile];
 		switch (LeftTile) {
-			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+			case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235: case 20: case 210:
 			switch (RightTile) {
-				case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235:
+				case 255: case 34: case 237: case 153: case 220: case 5: case 84: case 168: case 180: case 235: case 20: case 210:
 					return false;
 				default:
 					return true;

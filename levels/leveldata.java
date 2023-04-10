@@ -7,6 +7,7 @@ public class leveldata{
 	private int lvlData[][];
 	private Bloques objData[][];
 	private Player player;
+	public boolean isWin;
 	
 	/** Constructor para la clase {@link #leveldata}
 	 * @see Entities.Player
@@ -22,6 +23,7 @@ public class leveldata{
 	 * Actualiza los datos correspondientes al nivel */
 	public void update(){
 		resetPlayerHitboxPos();
+		hasWon();
 	}
 
 	public void draw(Graphics g){
@@ -29,6 +31,21 @@ public class leveldata{
 			for (int j = 0; j < this.objData[i].length; j++) {
 				if(this.objData[i][j] != null){
 					this.objData[i][j].draw(g);}
+			}
+		}
+	}
+
+	public void hasWon(){
+		for (int i = 0; i < this.objData.length; i++) {
+			for (int j = 0; j < this.objData[i].length; j++) {
+				if(this.objData[i][j] != null){
+					if(this.player.type == 0 && this.objData[i][j].id == 210){	//Is Mario's Door
+						if((this.objData[i][j].collision == true) && (this.objData[i][j].index) >= 5f){this.isWin = true;}
+					}
+					if(this.player.type == 1 && this.objData[i][j].id == 20){	//Is Luigi's Door
+					if((this.objData[i][j].collision == true) && (this.objData[i][j].index) >= 5f){this.isWin = true;}
+					}
+				}
 			}
 		}
 	}

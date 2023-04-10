@@ -5,6 +5,7 @@ import java.awt.*;
 
 import inputs.*;
 import gamestates.GameStates;
+import gamestates.LvlWon;
 
 /** 
  * Clase principal en la que se mostrara todo el juego  */
@@ -13,6 +14,7 @@ public class MyPanel extends JPanel{
 	public KeyInputs key;
 	public MouseInputs mouse;
 	public JButton playButton, quitButton;
+	public LvlWon lvlWon;
 
 	/** 
 	 * Constructor para la clase {@link #MyPanel}
@@ -26,6 +28,7 @@ public class MyPanel extends JPanel{
 		addKeyListener(key);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+		initLvlWon(mouse);
     }
     
 	/**Este metodo es el encargado de actualizar el programa
@@ -40,6 +43,9 @@ public class MyPanel extends JPanel{
 				break;
 			case MAINMENU:
 				this.Mygame.getMainMenu().update();
+				break;
+			case LVLWON:
+				this.lvlWon.update();
 				break;
 			case QUIT:
 				System.exit(0);
@@ -61,6 +67,9 @@ public class MyPanel extends JPanel{
 			case MAINMENU:
 				this.Mygame.getMainMenu().draw(g);
 				break;
+			case LVLWON:
+				this.lvlWon.draw(g);
+				break;
 			default:
 				break;
 		}
@@ -73,4 +82,15 @@ public class MyPanel extends JPanel{
 		}
 	}
 
+	private void initLvlWon(MouseInputs mouse){
+		lvlWon = new LvlWon(mouse);
+	}
+
+	/**
+	 *
+	 * @return {@code LvlWon} de la clase (para manejar Inputs), actualizar y dibujar
+	 */
+	public LvlWon getLvlWon() {
+		return lvlWon;
+	}
 }
