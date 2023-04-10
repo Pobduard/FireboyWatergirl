@@ -7,7 +7,7 @@ import maines.game;
 /** Esta Clase es para los Metodos que multiples entidades pueden usar*/
 public class HelpMethods {
 
-	/**Usa la funcion {@link#IsSolid(float, float, int[][])} para determinar si es posble moverse a las coordenadas que se le pasan
+	/**Usa la funcion {@link #IsSolid} para determinar si es posble moverse a las coordenadas que se le pasan
 	 * @return {@code true} si es posible moverse (no es Solido), {@code false} de lo contrario
 	 */
 	public static boolean CanMoveHere(float x, float y, int width, int height, int[][] lvlData){

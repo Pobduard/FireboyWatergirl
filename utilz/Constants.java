@@ -1,5 +1,8 @@
 package utilz;
 
+/**
+ * Esta clase almacena los valores de constantes que seran usadas durante la creacion del videojuego
+ */
 public class Constants {
 	public static class PlayerConstants{
 		public static final int IDLE = 0;
@@ -7,6 +10,11 @@ public class Constants {
 		public static final int JUMP = 2;
 		public static final int FALL = 3;
 
+		/**
+		 *
+		 * @param player_action
+		 * @return Retorna la cantidad de imagenes que tiene esa animacion
+		 */
 		public static int GetSpriteAmount(int player_action){
 			switch(player_action){
 				case IDLE:

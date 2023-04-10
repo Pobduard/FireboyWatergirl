@@ -42,6 +42,11 @@ public class LoadImg {
 	public static final String MainMenu = "resources/MainMenu2.png";
 
 
+	/**
+	 * @exception NullPointerException si no esta bien definida la ruta "in" podria ser un puntero nulo
+	 * @param path
+	 * @return img
+	 */
 	public static BufferedImage GetImage(String path){
 		BufferedImage img = null;
 		InputStream in = LoadImg.class.getResourceAsStream("/"+path);
@@ -65,6 +70,14 @@ public class LoadImg {
 		return image;
 	}
 
+	/**
+	 * Metodo usado para redimensionar a las imagenes
+	 * @exception NullPointerException si no esta bien definida la ruta "in" podria ser un puntero nulo
+	 * @param this_path
+	 * @param width
+	 * @param height
+	 * @return image
+	 */
 	public static BufferedImage GetResizedImage(String this_path, int width, int height){
 		BufferedImage img = null;
 		InputStream in = LoadImg.class.getResourceAsStream("/"+ this_path);
