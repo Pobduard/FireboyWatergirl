@@ -5,6 +5,9 @@ import java.awt.*;
 import gamestates.GameStates;
 import maines.*;
 
+/**
+ * Con esta clase podremos llevar control de nuestro tiempo
+ */
 public class Cronometro {
 	public boolean cronStop = false;
 	private int seg, mins;
