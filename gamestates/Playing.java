@@ -99,7 +99,7 @@ public class Playing implements StateMethods{
 				break;
 			//+ Escape
 			case KeyEvent.VK_ESCAPE:
-				// paused = !paused;		//Siempre sera lo contrario
+			GameStates.gamestate = GameStates.PLAYERSELECTOR;
 				break;
 			default:
 				break;

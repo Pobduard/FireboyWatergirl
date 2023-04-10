@@ -26,6 +26,8 @@ public class LoadImg {
 	public static final String Identify1 = "resources/Identif1.png";
 	public static final String Identify2 = "resources/Identif2.png";
 	public static final String Items = "resources/Items16x15.png";
+	public static final String MarioSelect = "resources/MarioImage.png";
+	public static final String LuigiSelect = "resources/LuigiImage.png";
 	
 	public static final String TilesSprite = "resources/Tiles.png";
 	public static final String BigTileSprite = "resources/BigTile.png";

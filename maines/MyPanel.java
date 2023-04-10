@@ -4,9 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import inputs.*;
-import levels.Cronometro;
 import gamestates.GameStates;
-import gamestates.LvlWon;
+import gamestates.*;
 
 /** 
  * Clase principal en la que se mostrara todo el juego  */
@@ -16,6 +15,7 @@ public class MyPanel extends JPanel{
 	public MouseInputs mouse;
 	public JButton playButton, quitButton;
 	public LvlWon lvlWon;
+	public SelectPlayer playerSelector;
 
 	/** 
 	 * Constructor para la clase {@link #MyPanel}
@@ -45,6 +45,9 @@ public class MyPanel extends JPanel{
 			case MAINMENU:
 				this.Mygame.getMainMenu().update();
 				break;
+			case PLAYERSELECTOR:
+				this.playerSelector.update();
+				break;
 			case LVLSELECTOR:
 				this.Mygame.getLvlSelector().update();
 				break;
@@ -71,8 +74,12 @@ public class MyPanel extends JPanel{
 			case MAINMENU:
 				this.Mygame.getMainMenu().draw(g);
 				break;
+			case PLAYERSELECTOR:
+				this.playerSelector.draw(g);
+				break;
 			case LVLSELECTOR:
 				this.Mygame.getLvlSelector().draw(g);
+				break;
 			case LVLWON:
 				this.lvlWon.draw(g);
 				break;
@@ -91,10 +98,17 @@ public class MyPanel extends JPanel{
 		if(GameStates.gamestate != GameStates.LVLSELECTOR){
 			this.Mygame.getLvlSelector().update();
 		}
+		if(GameStates.gamestate != GameStates.PLAYERSELECTOR){
+			this.playerSelector.isActive();
+		}
 	}
 
 	private void initLvlWon(){
 		lvlWon = new LvlWon();
+	}
+
+	private void SelectPlayer(){
+		playerSelector = new SelectPlayer();
 	}
 
 	/**
