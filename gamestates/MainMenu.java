@@ -34,18 +34,22 @@ public class MainMenu implements ActionListener{
 
 	private void initButtons(MyPanel panel){
 		this.playButton = new JButton("Play");
+		this.playButton.setFont(new Font("Comic Sans", Font.BOLD, 45));
+		this.playButton.setForeground(Color.WHITE);;
 		this.playButton.setBounds((game.Game_Width/2) - ButtonWidth/2, (game.Game_Height/2) - (ButtonHeight*2), ButtonWidth, ButtonHeight);
 		this.playButton.addActionListener(this);
 		this.playButton.setBackground(Color.LIGHT_GRAY);
-		playButton.addMouseListener(panel.mouse);
-		playButton.addMouseMotionListener(panel.mouse);
+		this.playButton.addMouseListener(panel.mouse);
+		this.playButton.addMouseMotionListener(panel.mouse);
 		this.Mypanel.add(this.playButton);
 		this.quitButton = new JButton("Quit");
+		this.quitButton.setFont(new Font("Comic Sans", Font.BOLD, 45));
+		this.quitButton.setForeground(Color.WHITE);;
 		this.quitButton.setBounds((game.Game_Width/2) - ButtonWidth/2, (game.Game_Height/2) - (ButtonHeight), ButtonWidth, ButtonHeight);
 		this.quitButton.addActionListener(this);
 		this.quitButton.setBackground(Color.LIGHT_GRAY);
-		quitButton.addMouseListener(panel.mouse);
-		quitButton.addMouseMotionListener(panel.mouse);
+		this.quitButton.addMouseListener(panel.mouse);
+		this.quitButton.addMouseMotionListener(panel.mouse);
 		this.Mypanel.add(quitButton);
 	}
 
