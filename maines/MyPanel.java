@@ -44,8 +44,11 @@ public class MyPanel extends JPanel{
 			case MAINMENU:
 				this.Mygame.getMainMenu().update();
 				break;
+			case LVLSELECTOR:
+				this.Mygame.getLvlSelector().update();
+				break;
 			case LVLWON:
-				this.lvlWon.update();
+			this.lvlWon.update();				
 				break;
 			case QUIT:
 				System.exit(0);
@@ -67,6 +70,8 @@ public class MyPanel extends JPanel{
 			case MAINMENU:
 				this.Mygame.getMainMenu().draw(g);
 				break;
+			case LVLSELECTOR:
+				this.Mygame.getLvlSelector().draw(g);
 			case LVLWON:
 				this.lvlWon.draw(g);
 				break;
@@ -79,6 +84,9 @@ public class MyPanel extends JPanel{
 	private void isActive(){
 		if(GameStates.gamestate != GameStates.MAINMENU){
 			this.Mygame.getMainMenu().update();
+		}
+		if(GameStates.gamestate != GameStates.LVLSELECTOR){
+			this.Mygame.getLvlSelector().update();
 		}
 	}
 

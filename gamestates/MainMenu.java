@@ -181,7 +181,7 @@ public class MainMenu implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(GameStates.gamestate == GameStates.MAINMENU){
 			if(e.getSource() == this.playButton){
-				GameStates.gamestate = GameStates.PLAYING;
+				GameStates.gamestate = GameStates.LVLSELECTOR;
 			}
 			if(e.getSource() == this.quitButton){
 				GameStates.gamestate = GameStates.QUIT;

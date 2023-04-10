@@ -11,6 +11,7 @@ public class game {
 	private MyPanel panel;
 	private Playing playing;
 	private MainMenu mainMenu;
+	private SelectLvl lvlSelector;
 
 	private TimerTask taskUpdate, taskDraw;
 	private final int FPS = 120, UPS = 200;
@@ -28,6 +29,7 @@ public class game {
 	initMainMenu(panel);
 	frame = new MyFrame(panel, "Jaiber Arellano's & Williangel Quevedo's - Fireboy and Watergirl");
 	frame.add(panel);
+	initLvlSelector(panel);
 
 	frame.setVisible(true);
 	initTask();
@@ -52,6 +54,14 @@ public class game {
 	 */
 	private void initMainMenu(MyPanel panel){
 		mainMenu = new MainMenu(this.panel);
+	}
+
+	/**
+	 * Genera el Selector de Niveles
+	 * @param panel
+	 */
+	private void initLvlSelector(MyPanel panel){
+		lvlSelector = new SelectLvl(this.panel);
 	}
 
 	/**
@@ -106,6 +116,10 @@ public class game {
 	 */
 	public MainMenu getMainMenu() {
 		return mainMenu;
+	}
+
+	public SelectLvl getLvlSelector() {
+		return lvlSelector;
 	}
 
 }
