@@ -79,6 +79,8 @@ public class levelmanager {
 		else if(id == 168){return new Slope(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());} 
 		else if(id == 180){return new Slope(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());}
 		else if(id == 235){return new Slope(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());}
+		else if(id == 5){return new Item(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());}
+		else if(id == 220){return new Item(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());}
 		else {return null;}
 		
 		// switch (id) {
@@ -153,7 +155,7 @@ public class levelmanager {
 				returnColor = Color.GREEN;
 				break;
 			case 5:		//& HongoVerde
-				returnColor = Color.CYAN;
+				returnColor = new Color(5,183,239);
 				break;
 			case 220:	//& HongoRojo
 				returnColor = new Color(220,114,35);
@@ -241,11 +243,6 @@ public class levelmanager {
 					g.drawImage(tile[1], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
 				if(getPixelValue(i, j, currentLvl) == 34){
 					g.drawImage(spikes, i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
-		//TODO: DELETE THIS ITEMS ONCE THE  CLASS FOR THE OBJECT HAS BEEN CREATED
-				if(getPixelValue(i, j, currentLvl) == 5){
-					g.drawImage(item[1], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
-				if(getPixelValue(i, j, currentLvl) == 220){
-					g.drawImage(item[0], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
 			}
 		}
 	}
@@ -257,12 +254,6 @@ public class levelmanager {
 		for (int i = 0; i < tile.length; i++) {
 			this.tile[i] = tiles.getSubimage(i*game.Tile_Size, 0, game.Tile_Size, game.Tile_Size);
 		}
-		//TODO: DELETE THIS ITEMS ONCE THE CLASS FOR THE OBJECT HAS BEEN CREATED
-		BufferedImage items = LoadImg.GetResizedImage(LoadImg.Items, game.Tile_Size*2, game.Tile_Size);
-		for (int i = 0; i < this.item.length; i++) {
-			this.item[i] = items.getSubimage(i*game.Tile_Size, 0, game.Tile_Size, game.Tile_Size);
-		}
-
 	}
 
 	public void setPlayers(){
