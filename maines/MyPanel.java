@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import inputs.*;
+import levels.Cronometro;
 import gamestates.GameStates;
 import gamestates.LvlWon;
 
@@ -48,7 +49,7 @@ public class MyPanel extends JPanel{
 				this.Mygame.getLvlSelector().update();
 				break;
 			case LVLWON:
-			this.lvlWon.update();				
+				this.lvlWon.update();				
 				break;
 			case QUIT:
 				System.exit(0);
@@ -78,7 +79,9 @@ public class MyPanel extends JPanel{
 			default:
 				break;
 		}
-
+		if(GameStates.gamestate != GameStates.PLAYING){
+			this.Mygame.getPlaying().getCron().update();
+		}
 	}
 
 	private void isActive(){

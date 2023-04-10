@@ -4,24 +4,34 @@ import java.awt.Graphics;
 import java.awt.event.*;
 
 import Entities.Player;
-import levels.levelmanager;
+import levels.*;
 
 public class Playing implements StateMethods{
 	private levelmanager lvlmanager;
 	private Player player;
+	private Cronometro cron;
+
+
 	public Playing() {
-		this.lvlmanager = new levelmanager();
+		this.lvlmanager = new levelmanager(this);
 		this.player = this.lvlmanager.getPlayer();
+		initCron();
 	}
 
 	@Override
 	public void update() {
 		this.lvlmanager.update();
+		this.cron.update();
 	}
 
 	@Override
 	public void draw(Graphics g) {
 		this.lvlmanager.draw(g);
+		this.cron.draw(g);
+	}
+
+	private void initCron(){
+		cron = new Cronometro();
 	}
 
 	@Override
@@ -118,6 +128,10 @@ public class Playing implements StateMethods{
 
 	@Override
 	public void MouseDragged(MouseEvent e) {
+	}
+
+	public Cronometro getCron() {
+		return cron;
 	}
 	
 }
