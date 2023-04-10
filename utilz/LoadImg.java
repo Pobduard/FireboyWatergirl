@@ -26,13 +26,21 @@ public class LoadImg {
 
 	public static final String Identify1 = "resources/Identif1.png";
 	public static final String Identify2 = "resources/Identif2.png";
+	public static final String Items = "resources/Items16x15.png";
 	
 	public static final String TilesSprite = "resources/Tiles.png";
 	public static final String BigTileSprite = "resources/BigTile.png";
 	public static final String SlopesSprite = "resources/Slopes.png";
+	public static final String LiquidSprites = "resources/LiquidAssets31x21.png";
+	public static final String BotonesSprites = "resources/Botones16x18.png";
+	public static final String PilarSprites = "resources/Pilar16x16.png";
+	public static final String PlataformaSprites = "resources/Platform16x16.png";
+	public static final String SpikesSprites = "resources/Spikes16x16.png";
 
 	public static final String Background1 = "resources/Fondo1.png";
 	public static final String Background2 = "resources/Fondo2.png";
+	public static final String PlayerSelector = "resources/playerSelector.png";
+	public static final String MainMenu = "resources/MainMenu2.png";
 
 
 	public static BufferedImage GetImage(String path){

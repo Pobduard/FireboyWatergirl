@@ -14,7 +14,8 @@ import gamestates.LevelStates;
  * Clase Principal para manejar todos los datos correspondientes a un nivel */
 public class levelmanager {
 	BufferedImage tile[] = new BufferedImage[4];
-	BufferedImage background;
+	BufferedImage item[] = new BufferedImage[2];
+	BufferedImage background, spikes;
 	private Bloques objData[][];
 	private leveldata lvlOne, lvlTwo, lvlTre;
 	private Player player;
@@ -142,19 +143,19 @@ public class levelmanager {
 			case 235:	//& Rampa		\־
 				returnColor = new Color(235, 194, 14);
 				break;
-			case 153:	//& Agua
+			case 153:	//& Toxico
 				returnColor = Color.BLUE;
 				break;
 			case 237:	//& Lava
 				returnColor = Color.RED;
 				break;
-			case 34:	//& Toxico
+			case 34:	//& Spikes
 				returnColor = Color.GREEN;
 				break;
-			case 5:	//& Diamante
+			case 5:		//& HongoVerde
 				returnColor = Color.CYAN;
 				break;
-			case 220:	//& Ruby
+			case 220:	//& HongoRojo
 				returnColor = new Color(220,114,35);
 				break;
 			case 50:	//& Boton
@@ -230,7 +231,7 @@ public class levelmanager {
 		int[][] currentLvl = getLeveldata(); 
 		for (int i = 0; i < game.Game_Tiles_In_Width; i++) {
 			for (int j = 0; j < game.Game_Tiles_In_Height; j++) {
-				// TODO: HERE LVL DEBUG
+				//TODO: DELETE AT THE END
 				g.setColor(checkPixelValue(currentLvl[i][j]));
 				g.fillRect(i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size);
 
@@ -238,16 +239,30 @@ public class levelmanager {
 					g.drawImage(tile[0], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
 				if(getPixelValue(i, j, currentLvl) == 150){
 					g.drawImage(tile[1], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
+				if(getPixelValue(i, j, currentLvl) == 34){
+					g.drawImage(spikes, i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
+		//TODO: DELETE THIS ITEMS ONCE THE  CLASS FOR THE OBJECT HAS BEEN CREATED
+				if(getPixelValue(i, j, currentLvl) == 5){
+					g.drawImage(item[1], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
+				if(getPixelValue(i, j, currentLvl) == 220){
+					g.drawImage(item[0], i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size, null);}
 			}
 		}
 	}
 
 	public void initSprites(){
-		BufferedImage img = LoadImg.GetResizedImage(LoadImg.TilesSprite, 24*4, 24);
-		for (int i = 0; i < tile.length; i++) {
-			this.tile[i] = img.getSubimage(i*24, 0, 24, 24);
-		}
 		this.background = LoadImg.GetResizedImage(LoadImg.Background1, game.Game_Width, game.Game_Height);
+		this.spikes = LoadImg.GetResizedImage(LoadImg.SpikesSprites, game.Tile_Size, game.Tile_Size);
+		BufferedImage tiles = LoadImg.GetResizedImage(LoadImg.TilesSprite, game.Tile_Size*4, game.Tile_Size);
+		for (int i = 0; i < tile.length; i++) {
+			this.tile[i] = tiles.getSubimage(i*game.Tile_Size, 0, game.Tile_Size, game.Tile_Size);
+		}
+		//TODO: DELETE THIS ITEMS ONCE THE CLASS FOR THE OBJECT HAS BEEN CREATED
+		BufferedImage items = LoadImg.GetResizedImage(LoadImg.Items, game.Tile_Size*2, game.Tile_Size);
+		for (int i = 0; i < this.item.length; i++) {
+			this.item[i] = items.getSubimage(i*game.Tile_Size, 0, game.Tile_Size, game.Tile_Size);
+		}
+
 	}
 
 	public void setPlayers(){
