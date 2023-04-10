@@ -5,7 +5,7 @@ import java.util.TimerTask;
 import gamestates.*;
 
 /** 
- * Clase con los Datos Principales del juego, desde donde se crea lo Esencial para el juego e inicia todo */
+ * Clase con los Datos Principales del juego, desde donde se crea lo Esencial para el juego e inicia todo  */
 public class game {
 	private MyFrame frame;
 	private MyPanel panel;
@@ -39,16 +39,23 @@ public class game {
 	panel.requestFocusInWindow();
 	}
 
+	/**
+	 * Genera un gamestate de la clase {@link gamestates.Playing}  con el cual actualizaremos y dibujaremos en pantalla
+	 */
 	private void initPlaying(){
 		playing = new Playing();
 	}
 
+	/**
+	 * Genera el menu principal
+	 * @param panel
+	 */
 	private void initMainMenu(MyPanel panel){
 		mainMenu = new MainMenu(this.panel);
 	}
 
 	/**
-	 * Inicializa los Timers Correspondienes a {@link #initUpdates()} y {@link #initDraws()()}  */
+	 * Genera los Timers correspondientes a {@link #initUpdates()} e {@link #initDraws()}  */
 	public void initTask(){
 		taskUpdate = new TimerTask() {
 			@Override
@@ -66,36 +73,37 @@ public class game {
 	};
 
 	/**
-	 * Inicializa el Timer Encargado de Actualizar los Datos del juego
-	 * @see #utilz.CreateTimerTask.InitialiceTimerTask(Timertask, String, int, int)
-	 * @see java.util.TimerTask
-	 * @see java.util.Timer*/
+	 * Inicializa el Timer encargado de actualizar los datos del juego
+	 * @see utilz.CreateTimerTask */
 	public void initUpdates(){
 		CreateTimerTask.InitialiceTimerTask(taskUpdate, "Update-Timer", 0, Math.floorDiv(UPS, 100));
 	}
 
 	/**
-	 * Inicializa el Timer Encargado de Actualizar Todo lo referente a los graficos del juego
+	 * Inicializa el Timer encargado de actualizar todo lo referente a los graficos del juego
 	 * @see java.awt.Graphics
-	 * @see #utilz.CreateTimerTask.InitialiceTimerTask(Timertask, String, int, int)
-	 * @see java.util.TimerTask
-	 * @see java.util.Timer*/
+	 * @see utilz.CreateTimerTask
+	 * @see java.util.TimerTask */
 	public void initDraws(){
 		CreateTimerTask.InitialiceTimerTask(taskDraw, "Draws-Timer", 0, Math.floorDiv(FPS, 100));
 	}
 
 	/** 
-	 * @return {@code Panel} de la clase (Para Manejar Inputs)*/
+	 * @return {@code Panel} de la clase (para manejar Inputs), actualizar y dibujar*/
 	public MyPanel getPanel(){
 		return this.panel;
 	}
 
 	/** 
-	 * @return {@code Playing} de la clase (Para Manejar Inputs)*/
+	 * @return {@code playing} de la clase (para manejar Inputs), actualizar y dibujar */
 	public Playing getPlaying(){
 		return this.playing;
 	}
 
+	/**
+	 *
+	 * @return {@code Playing} de la clase (para manejar Inputs), actualizar y dibujar
+	 */
 	public MainMenu getMainMenu() {
 		return mainMenu;
 	}

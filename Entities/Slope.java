@@ -7,12 +7,27 @@ import utilz.LoadImg;
 
 import maines.game;
 
+/**
+ * Clase Slope (pendiente)
+ */
+
 public class Slope extends Bloques{
 	BufferedImage Sprites[];
 	boolean isRightSlope = false, isLeftSlope = false, upside = false;
 	float slope = 0;
 	Point2D.Float Point1, Point2;
 	Player player;
+
+	/**
+	 * Constructor
+	 * @param x
+	 * @param y
+	 * @param height
+	 * @param width
+	 * @param id
+	 * @param collision
+	 * @param player
+	 */
 	public Slope(float x, float y, int height, int width, int id, boolean collision, Player player) {
 		super(x, y, height, width, id, collision);
 		createHitbox(x, y, width, height);
@@ -23,6 +38,9 @@ public class Slope extends Bloques{
 		calculateSlope();
 	}
 
+	/**
+	 * Todo Carga los sprites de los slopes
+	 */
 	private void initSprite() {
 		BufferedImage slopesprite = LoadImg.GetResizedImage(LoadImg.SlopesSprite, 24*2, 24);
 		this.Sprites = new BufferedImage[2];

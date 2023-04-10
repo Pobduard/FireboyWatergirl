@@ -11,14 +11,16 @@ import utilz.LoadImg;
 
 import static utilz.Constants.PlayerConstants.*;
 
-/**Clase Jugador 
- * @param right si es cierta, el jugador esta moviendose a la derecha
- * @param left si es cierta, el jugador esta moviendose a la izquierda
- * @param InAir si es cierta, el jugador esta en el aire (saltando, o callendo)
- * @param IsAlive si es cierta, el jugador esta vivo/en juego
+/**Clase Jugador
 */
 public class Player extends Entity {
-    private BufferedImage Sprites[][];
+   /* * @param right si es cierta, el jugador esta moviendose a la derecha
+ * @param left si es cierta, el jugador esta moviendose a la izquierda
+ * @param InAir si es cierta, el jugador esta en el aire (saltando, o callendo)
+ * @param IsAlive si es cierta, el jugador esta vivo/en juego*/
+
+
+    private BufferedImage[][] Sprites;
     private leveldata level;
     private int aniTick, aniIndex, aniSpeed = 25;
     private int playerAction = IDLE;
@@ -30,6 +32,12 @@ public class Player extends Entity {
 
     /**Constructor<p>
      * Crear la {@code hitbox}
+     * @param x coordenada en x de la hitbox
+     * @param y coordenada en y de la hitbox
+     * @param width ancho de la hitbox
+     * @param height alto de la hitbox
+     * @param level obtener la data del nivel el cual sera actualizado
+     * @param type tipo de jugador seleccionado
     */
     public Player(float x, float y, int width, int height, leveldata level, int type){
        super(x, y, height, width);
@@ -69,7 +77,7 @@ public class Player extends Entity {
             this.Sprites[1] = Movement;
             this.Sprites[2][0] = Jump;
             this.Sprites[3][0] = Fall;
-        };
+        }
         if(type == 1){  //"Wa'er"
         BufferedImage Idle = LoadImg.GetImage(LoadImg.LUIGI_IDLE);
         BufferedImage Jump = LoadImg.GetImage(LoadImg.LUIGI_JUMP);
@@ -244,7 +252,7 @@ public class Player extends Entity {
 		int yUp = (int)this.hitbox.y / game.Tile_Size;
 		int xRight = (int)(this.hitbox.x + this.hitbox.width) / game.Tile_Size;
 		int yDown = (int)(this.hitbox.y + this.hitbox.height) / game.Tile_Size;
-        int levelData[][] = level.getLvlData();
+        int[][] levelData = level.getLvlData();
 
         //-1 por recordar que el Array Empieza en 0, tons llega hasta 39
 		if(xLeft > game.Game_Tiles_In_Width-1){

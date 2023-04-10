@@ -6,23 +6,22 @@ import java.awt.geom.Rectangle2D;
 /*
 * Tambien a lo largo de todo el Juego, si algo se mueve, se movera usando su hitbox y no los valores originales, con la finalidad
 * de poder Reiniciar la posicion de esa hitbox de forma mas sencila (el valor de su "x" y "y" no se cambiaran a menos que se desee, y ese sera el caso de cambios
-* de nivel por ejemplo, que usualmente se hara de forma "discreta", osease no en conjunto con actualizar la hitbox)
+* de nivel por ejemplo, que usualmente se hara de forma "discreta", osea no en conjunto con actualizar la hitbox)
  */
 /** 
  * {@code Entity} es una clase Madre para Todo Tipo de Entidades
- * <p>
- * Posee:
- * @param x
- * @param y
- * @param width
- * @param height
- * @param id Para Diferenciar los tipos de bloques mayormente
 */
 public abstract class Entity{
     protected int width,height;
     protected float x, y;
     protected Rectangle2D.Float hitbox;
-    /** Constructor*/
+
+    /**
+     * @param x posicion en x de la Entity
+     * @param y posicion en y de la Entity
+     * @param width ancho de la Entity
+     * @param height alto de la Entity
+     */
     protected Entity(float x, float y, int width, int height){
         this.x = x;
         this.y = y;
@@ -57,7 +56,7 @@ public abstract class Entity{
      * Crea una Hitbox para el Objeto
      * @param x Posicion x de la hitbox
      * @param y Posicion y de la hitbox
-     * @param width Anchor de la hitbox
+     * @param width Ancho de la hitbox
      * @param height Alto de la hitbox
      */
     protected void createHitbox(float x,float y,int width, int height){
@@ -66,6 +65,11 @@ public abstract class Entity{
 
     /**
     * @return {@code hitbox}
+     */
+
+    /**
+     *
+     * @return la hitbox
      */
     public Rectangle2D.Float getHitbox(){
         return hitbox;
