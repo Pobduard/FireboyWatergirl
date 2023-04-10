@@ -17,7 +17,13 @@ public class CreateTimerTask {
 		timer.scheduleAtFixedRate(task, delay, period);
 	}
 
-	/** Sin Uso de momento, para Debugging */
+	/**
+	 * Es el metodo encargado de inicializar los TimerTask
+	 * @param this_task
+	 * @param taskName
+	 * @param delay
+	 * @param period
+	 */
 	public static void InitialiceTimerTask(TimerTask this_task, String taskName,int delay, int period){
 		TimerTask task = this_task;
 		Timer timer = new Timer(taskName);

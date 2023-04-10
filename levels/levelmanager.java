@@ -11,7 +11,7 @@ import gamestates.GameStates;
 import gamestates.LevelStates;
 
 /** 
- * Clase Principal para manejar todos los carros correspondientes a un nivel */
+ * Clase Principal para manejar todos los datos correspondientes a un nivel */
 public class levelmanager {
 	BufferedImage tile[] = new BufferedImage[4];
 	BufferedImage item[] = new BufferedImage[2];
@@ -22,7 +22,7 @@ public class levelmanager {
 	private Object currentObjData = null;
 	private final int playerWidth = game.Tile_Size+8, playerHeight = game.Tile_Size+16;
 
-	/** Constructor para la clase {@link #levelmanager(game)} */
+	/** Constructor para la clase {@link #levelmanager} */
 	public levelmanager(){
 		initSprites();
 		this.player = new Player(game.Tile_Size*2, game.Game_Height-game.Tile_Size*6, playerWidth, playerHeight, null, 0);
@@ -35,7 +35,7 @@ public class levelmanager {
 
 	/** 
 	 * @return La {@code lvlData[][]} del {@link leveldata} en que nos encontramos 
-	 * @see #levelstates.levelstate
+	 * @see gamestates.LevelStates
 	 * */
 	public int[][] getLeveldata(){
 		int[][] returlvl = null;
@@ -180,7 +180,7 @@ public class levelmanager {
 
 	/** 
 	 * Actualiza Todos los datos correspondientes al Nivel en el que nos encontramos
-	 * @see #levelstates.levelstate*/
+	 * @see gamestates.LevelStates*/
 	public void update(){
 		if(GameStates.gamestate == GameStates.PLAYING){		
 			setPlayers();
@@ -207,7 +207,7 @@ public class levelmanager {
 
 	/** 
 	 * Dibuja Todo lo Relacionado al Nivel en el que nos encontramos 
-	 * @see #levelstates.levelstate
+	 * @see gamestates.LevelStates
 	*/
 	public void draw(Graphics g){
 		if(GameStates.gamestate == GameStates.PLAYING){		
@@ -224,7 +224,7 @@ public class levelmanager {
 
 	/** 
 	 * Dibuja el Nivel en el que nos encontramos 
-	 * @see #levelstates.levelstate
+	 * @see gamestates.LevelStates
 	*/
 	public void drawlvl(Graphics g){
 		g.drawImage(background, 0, 0, game.Game_Width, game.Game_Height, null);

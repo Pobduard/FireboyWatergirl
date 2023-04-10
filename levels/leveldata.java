@@ -8,8 +8,10 @@ public class leveldata{
 	private Bloques objData[][];
 	private Player player;
 	
-	/** Constructor para la clase {@link #leveldata(int[][])} 
-	 * @see #Entities.Player()
+	/** Constructor para la clase {@link #leveldata}
+	 * @see Entities.Player
+	 * @param data
+	 * @param obj
 	*/
 	public leveldata(int[][] data, Bloques[][] obj){
 		this.lvlData = data;

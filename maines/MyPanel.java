@@ -15,7 +15,9 @@ public class MyPanel extends JPanel{
 	public JButton playButton, quitButton;
 
 	/** 
-	 * Constructor para la clase {@link #MyPanel(game)}  */
+	 * Constructor para la clase {@link #MyPanel}
+	 * @param Mygame
+	 * */
 	public MyPanel(game Mygame){
 		this.setPreferredSize(new Dimension(game.Game_Width, game.Game_Height));
 		this.Mygame= Mygame;
@@ -26,8 +28,9 @@ public class MyPanel extends JPanel{
 		addMouseMotionListener(mouse);
     }
     
-	/** Empieza la cadena de Actualizaciones de Datos
-	 * @see levelmanager
+	/**Este metodo es el encargado de actualizar el programa
+	 * @see levels.levelmanager
+	 * @see gamestates.GameStates
 	*/
 	public void update(){
 		isActive();
@@ -47,7 +50,6 @@ public class MyPanel extends JPanel{
 
 	/** Empieza la cadena de Dibujo de los Graficos
 	 * @see java.awt.Graphics
-	 * @see levelmanager
 	*/
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
