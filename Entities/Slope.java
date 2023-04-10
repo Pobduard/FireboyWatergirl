@@ -9,11 +9,11 @@ import utilz.LoadImg;
  * Clase Slope
  */
 public class Slope extends Bloques{
-	BufferedImage Sprites[];
-	boolean isRightSlope = false, isLeftSlope = false, upside = false;
-	float slope = 0;
-	Point2D.Float Point1, Point2;
-	Player player;
+	private BufferedImage Sprites[];
+	private boolean isRightSlope = false, isLeftSlope = false, upside = false;
+	private float slope = 0;
+	private Point2D.Float Point1, Point2;
+	private Player player;
 
 	/**
 	 * Constructor

@@ -25,7 +25,7 @@ public class Player extends Entity {
     private int aniTick, aniIndex, aniSpeed = 25;
     private int playerAction = IDLE;
     private boolean moving, right ,left ,inAir , canJump, Alive = true;
-    private int type;
+    public int type;
     public float playerSpeed = 0.9f; 
     private float fallSpeedAfterCollision = 0.5f, airSpeed = 0f, jumpSpeed = -2.5f, gravity = 0.02f;
     public float xSpeed = 0f;

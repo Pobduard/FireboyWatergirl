@@ -14,7 +14,7 @@ public class Bloques extends Entity{
      * @param y
      * @param height
      * @param width
-     * @param id
+     * @param id (Tipe de Bloque que es)
      * @param collision
      */
     protected Bloques(float x, float y, int height, int width, int id, boolean collision) {
