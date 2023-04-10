@@ -33,7 +33,7 @@ public class Cronometro {
 		if(GameStates.gamestate == GameStates.PLAYING && !cronStop){
 			currentTime = System.currentTimeMillis();
 			float Diference = (currentTime - prevTime) / 1000;
-			Actuales += (1.46f + Diference);	//El tiempo de cada update + poquito mas de tiempo de fallo
+			Actuales += (1.46f + Diference);	//El tiempo de cada update + poquito mas de tiempo de fallo si hay alguno
 			seg = (int)(Actuales / 1_000) % 60;
 			mins = (int)(Actuales / 60_000);
 			prevTime = currentTime;
