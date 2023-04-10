@@ -61,7 +61,7 @@ public class levelmanager {
 	 *
 	 * @return A boolean value to the gamestates class
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	public void isLvlWon(){
 		if(LevelStates.levelstate == LevelStates.LVL1){
@@ -142,7 +142,7 @@ public class levelmanager {
 	 *
 	 * @return A new object of the type that is passed by parameter
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	private Bloques initialiceObj(float x, float y, int id, int i, int j){
 		if(id == 84){return new Slope(x, y, game.Tile_Size, game.Tile_Size, id, false, getPlayer());} 
@@ -360,7 +360,7 @@ public class levelmanager {
 	 *
 	 * @return Nothing
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	public void initSprites(){
 		this.background = LoadImg.GetResizedImage(LoadImg.Background1, game.Game_Width, game.Game_Height);
@@ -387,7 +387,7 @@ public class levelmanager {
 	 *
 	 * @return Nothing
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	public void setPlayers(){
 		lvlOne.setPlayer(this.player);
@@ -413,7 +413,7 @@ public class levelmanager {
 	 *
 	 * @return True if the current object data is equal to the new object data
 	 *
-	 * @docauthor Trelent
+	 * 
 
 	 */
 	public boolean ObjDataActive(){
@@ -440,7 +440,7 @@ public class levelmanager {
 	 *
 	 * @return The current object data
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	public void refresObjData(){
 		if(!ObjDataActive()){
@@ -456,7 +456,7 @@ public class levelmanager {
 	 *
 	 * @return The current level's object data
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	private Bloques[][] getCurrentObjData(){
 		Bloques[][] returnObj = null;
@@ -486,7 +486,7 @@ public class levelmanager {
 	 *
 	 * @return Nothing
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	private void updateObjData(){
 		for (int i = 0; i < this.objData.length; i++) {
@@ -507,7 +507,7 @@ public class levelmanager {
 	 *
 	 * @return Nothing
 	 *
-	 * @docauthor Trelent
+	 * 
 	 */
 	public void settype(int type){
 		this.type = type;
