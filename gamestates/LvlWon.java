@@ -16,10 +16,9 @@ import utilz.LoadImg;
 public class LvlWon {
 	private Rectangle NextLvl, Quit ,LvlSelector;
 	private boolean intoQuit, intoNext, intSelector;
-	private MouseInputs mouse;
 	private BufferedImage background;
 
-	public LvlWon(MouseInputs mouse){
+	public LvlWon(){
 		this.background = LoadImg.GetResizedImage(LoadImg.LvlWon, game.Game_Width, game.Game_Height);
 		this.Quit = new Rectangle(ButtonWidth*1, (game.Game_Height/2), ButtonWidth, ButtonHeight);
 		this.LvlSelector = new Rectangle(ButtonWidth*3, (game.Game_Height/2), ButtonWidth, ButtonHeight);
@@ -29,8 +28,10 @@ public class LvlWon {
 
 	public void update() {
 		if(GameStates.gamestate == GameStates.LVLWON){
-			if(intoQuit){}
-			if(intoNext){nextLvl();}
+			if(intoQuit){System.exit(0);}
+			if(intSelector){this.intSelector = false;}
+			if(intoNext){nextLvl();
+				this.intoNext = false;}
 		}
 
 	}
@@ -77,9 +78,9 @@ public class LvlWon {
 	}
 
 	public void MouseClicked(MouseEvent e) {
-		if(this.intoQuit){
+		if(IsIn(e, Quit)){
 			this.intoQuit = true;
-		}
+		} else {}
 		if(IsIn(e, LvlSelector)){
 			this.intSelector = true;
 		}
@@ -89,6 +90,7 @@ public class LvlWon {
 	}
 
 	public boolean IsIn(MouseEvent e, Rectangle pn){
+
 		return pn.contains(e.getX(), e.getY());
 	}
 	

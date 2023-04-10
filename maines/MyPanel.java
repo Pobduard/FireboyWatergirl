@@ -28,7 +28,7 @@ public class MyPanel extends JPanel{
 		addKeyListener(key);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
-		initLvlWon(mouse);
+		initLvlWon();
     }
     
 	/**Este metodo es el encargado de actualizar el programa
@@ -82,8 +82,8 @@ public class MyPanel extends JPanel{
 		}
 	}
 
-	private void initLvlWon(MouseInputs mouse){
-		lvlWon = new LvlWon(mouse);
+	private void initLvlWon(){
+		lvlWon = new LvlWon();
 	}
 
 	/**
