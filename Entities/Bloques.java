@@ -24,6 +24,17 @@ public class Bloques extends Entity{
         this.collision = collision;
     }
 
+    
+    /**
+     * The update function is called every frame.
+     * It updates the position of the ball, and checks for collisions with walls.
+     
+     *
+     *
+     * @return A boolean value
+     *
+     * @docauthor Trelent
+     */
     public void update(){}
     public void draw(Graphics g){}
 }
