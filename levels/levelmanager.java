@@ -229,8 +229,7 @@ public class levelmanager {
 		g.drawImage(background, 0, 0, game.Game_Width, game.Game_Height, null);
 		int[][] currentLvl = getLeveldata(); 
 		for (int i = 0; i < game.Game_Tiles_In_Width; i++) {
-			for (int j = 0; j < game.Game_Tiles_In_Height; j++) {
-				// TODO: HERE LVL DEBUG
+			for (int j = 0; j < game.Game_Tiles_In_Height; j++) {			// 
 				g.setColor(checkPixelValue(currentLvl[i][j]));
 				g.fillRect(i * game.Tile_Size, j*game.Tile_Size, game.Tile_Size, game.Tile_Size);
 

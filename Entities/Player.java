@@ -140,7 +140,6 @@ public class Player extends Entity {
             if(HelpMethods.CanMoveHere(this.hitbox.x, this.hitbox.y + airSpeed, (int)this.hitbox.width, (int)this.hitbox.height, level.getLvlData())){
                 this.hitbox.y += this.airSpeed;
                 this.airSpeed += this.gravity;
-                //TODO: SECURITY
                 if(this.airSpeed >= 5f){this.airSpeed = 5f;}
                 updateXPos(xSpeed);
 
