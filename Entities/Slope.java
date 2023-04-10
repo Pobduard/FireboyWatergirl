@@ -99,14 +99,8 @@ public class Slope extends Bloques{
 	
 	public void leftPlayerCollision(){
 		if(this.player.hitbox.intersects(this.hitbox) && isInsideSlope()){
-			System.out.println("LeftPlayerCondition");
 			if(isLeftSlope && !upside){
-				if(this.player.xSpeed > 0){//DownWards
-					int pixelsUp = (int)(this.player.hitbox.x - Point2.x);
-					this.player.resetInAir();
-					this.player.hitbox.y -=	pixelsUp-1;
-				}
-				else if(this.player.xSpeed < 0){//Upwards
+				if(this.player.xSpeed < 0){//Upwards
 					int pixelsUp = (int)(this.player.hitbox.x - Point2.x);
 					this.player.resetInAir();
 					this.player.hitbox.y +=	pixelsUp-12;
@@ -135,33 +129,27 @@ public class Slope extends Bloques{
 	// TODO:
 	public void rightPlayerCollision(){
 		if(this.player.hitbox.intersects(this.hitbox) && isInsideSlope()){
-			System.out.println("RightPlayerCondition");
 			if(isRightSlope && !upside){
 				if(this.player.xSpeed > 0){//Upwards
-					int pixelsUp = (int)((this.player.hitbox.x+this.player.hitbox.width) - Point2.x);
+					float pixelsUp = ((this.player.hitbox.x+this.player.hitbox.width) - Point1.x);
+System.out.println("Px "+ Point1.x + " // "+this.player.hitbox.x +"+"+this.player.hitbox.width+": " + (this.player.hitbox.x+this.player.hitbox.width));
+System.out.println(Point1.x + " - // " + this.player.hitbox.x+this.player.hitbox.width + " : " + pixelsUp + " // " + this.player.hitbox.y + "\n");
 					this.player.resetInAir();
-					this.player.hitbox.y +=	pixelsUp-12;
+					this.player.hitbox.y -=	(pixelsUp);
 				}
-				else if(this.player.xSpeed < 0){//DownWards
-					int pixelsUp = (int)((this.player.hitbox.x+this.player.hitbox.width) - Point2.x);
-					this.player.resetInAir();
-					this.player.hitbox.y -=	pixelsUp;
-				}
-				else if(this.player.xSpeed == 0 && !upside){{
+				else if(this.player.xSpeed == 0 && !upside){
 					int pixelsUp = (int)(this.player.hitbox.y);
                     this.player.resetInAir();
                     this.player.hitbox.y = pixelsUp;
-				}
-
-				}
+					}
 			}
 			if(isRightSlope && upside){
 				if(this.player.xSpeed > 0){//DownWards
 					int pixelsDown = (int)(this.player.hitbox.x - Point2.x);
-					this.player.hitbox.y -=	pixelsDown-1;
+					this.player.hitbox.y -=	pixelsDown;
 				}
-				else if(this.player.xSpeed < 0){//Upwards
-					int pixelsDown = (int)(this.player.hitbox.x - Point2.x);
+				else if(this.player.xSpeed == 0 && !upside){//Only Collision
+					int pixelsDown = (int)(this.player.hitbox.y);
 					this.player.hitbox.y -=	pixelsDown;
 				}
 			}
@@ -178,11 +166,12 @@ public class Slope extends Bloques{
 		float YCondition = 0;
 		if((this.isLeftSlope && !this.upside) || (this.isRightSlope && this.upside)){		 	//		_\ || ¬\
 			YCondition = (this.slope * this.Point1.x);
+			YCondition += this.Point1.y;
 		}
 		else if ((this.isRightSlope && !this.upside) || (this.isLeftSlope && this.upside)){		//		/_ || /¬
 			YCondition = (this.slope * this.Point1.x) + 24;
+			YCondition += this.Point1.y;
 		}
-		System.out.println("YCond: " + YCondition);
 		return YCondition;
 	}
 
@@ -190,8 +179,8 @@ public class Slope extends Bloques{
 		if((YCondition() <= (this.player.hitbox.y+this.player.hitbox.height)) && !this.upside){
 			return true;}
 		
-		else if((YCondition() >= (this.player.hitbox.y)) && this.upside){
-				System.out.println("Upside Condition");
+		else if(!(YCondition() >= (this.player.hitbox.y)) && this.upside){
+				// System.out.println("Upside Condition");
 			return true;}
 		else{return false;}
 	}

@@ -24,7 +24,7 @@ public class Player extends Entity {
     private int playerAction = IDLE;
     private boolean moving, right ,left ,inAir , canJump, Alive = true;
     private int type;
-    private float playerSpeed = 0.9f, jumpSpeed = -2.5f, gravity = 0.02f;
+    private float playerSpeed = 0.3f, jumpSpeed = -2.5f, gravity = 0.02f;
     private float fallSpeedAfterCollision = 0.5f, airSpeed = 0f;
     public float xSpeed = 0f;
 
@@ -32,7 +32,7 @@ public class Player extends Entity {
      * Crear la {@code hitbox}
     */
     public Player(float x, float y, int width, int height, leveldata level, int type){
-       super(x, y, height, width);
+       super(x, y, width, height);
        this.level = level;
        this.type = type;
        createHitbox(x,y,width,height);
