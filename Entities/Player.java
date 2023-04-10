@@ -140,7 +140,7 @@ public class Player extends Entity {
             xSpeed -= playerSpeed;
         }
 
-        //Si no esta en el Aire, pero Tampoco en el suelo
+        //Si no esta en el Aire, pero Tampoco en el suelo 
         if(!inAir && !HelpMethods.IsEntityOnFloor(this.hitbox, level.getLvlData())){
             this.inAir = true;} 
 
