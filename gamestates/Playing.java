@@ -2,6 +2,7 @@ package gamestates;
 
 import java.awt.Graphics;
 import java.awt.event.*;
+import maines.*;
 
 import Entities.Player;
 import levels.*;
@@ -10,9 +11,11 @@ public class Playing implements StateMethods{
 	private levelmanager lvlmanager;
 	private Player player;
 	private Cronometro cron;
+	game MyGame;
 
 
-	public Playing() {
+	public Playing(game game) {
+		this.MyGame = game;
 		this.lvlmanager = new levelmanager(this);
 		this.player = this.lvlmanager.getPlayer();
 		initCron();

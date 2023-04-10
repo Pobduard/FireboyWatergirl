@@ -25,7 +25,7 @@ public class LvlWon {
 	public void update() {
 		if(GameStates.gamestate == GameStates.LVLWON){
 			if(intoQuit){System.exit(0);}
-			if(intSelector){this.intSelector = false;}
+			if(intSelector){GameStates.gamestate = GameStates.LVLSELECTOR;}
 			if(intoNext){nextLvl();
 				this.intoNext = false;}
 		}

@@ -45,7 +45,7 @@ public class game {
 	 * Genera un gamestate de la clase {@link gamestates.Playing}  con el cual actualizaremos y dibujaremos en pantalla
 	 */
 	private void initPlaying(){
-		playing = new Playing();
+		playing = new Playing(this);
 	}
 
 	/**
