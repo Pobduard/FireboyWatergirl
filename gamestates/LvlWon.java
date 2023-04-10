@@ -4,10 +4,6 @@ import java.awt.*;
 import java.awt.image.*;
 import java.awt.event.*;
 
-import javax.swing.JPanel;
-
-import inputs.MouseInputs;
-
 import static utilz.Constants.MainMenuButton.*;
 
 import maines.game;
