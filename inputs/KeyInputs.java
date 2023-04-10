@@ -4,6 +4,10 @@ import java.awt.event.*;
 import gamestates.GameStates;
 import maines.game;
 
+/**
+ * Esta clase se encarga de manejar lo relacionado a eventos por teclado
+ */
+
 public class KeyInputs implements KeyListener {
 	private game Mygame;
 

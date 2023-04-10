@@ -92,6 +92,10 @@ public class MainMenu implements ActionListener{
 		}
 	}
 
+	/**Maneja los botones<p></p>
+	 *Este metodo habilita o desabilita los botones, depende de
+	 * cual gamestate es el actual
+	 */
 	private void isActive(){
 		if(GameStates.gamestate == GameStates.MAINMENU){
 			abilitateButtons();
@@ -99,13 +103,19 @@ public class MainMenu implements ActionListener{
 		else{inhabiltateButtons();}
 	}
 
+	/**
+	 * Habilita los botones
+	 */
 	private void abilitateButtons(){		
 		this.playButton.setEnabled(true);		
 		this.quitButton.setEnabled(true);
 		this.playButton.setVisible(true);
 		this.quitButton.setVisible(true);
-	}	
+	}
 
+	/**
+	 * Inhabilita los botones
+	 */
 	private void inhabiltateButtons(){		
 		playButton.setEnabled(false);		
 		quitButton.setEnabled(false);	

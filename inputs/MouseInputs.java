@@ -3,6 +3,9 @@ package inputs;
 import java.awt.event.*;
 import maines.game;
 import gamestates.GameStates;
+/**
+ * Esta clase se encarga de manejar lo relacionado a eventos por mouse
+ */
 public class MouseInputs implements MouseListener, MouseMotionListener{
 	private game Mygame;
 
