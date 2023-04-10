@@ -41,4 +41,8 @@ public class Item extends Bloques {
 			this.collision = true;
 		}
 	}
+
+	public void resetColision(){
+		this.collision = false;
+	}
 }
